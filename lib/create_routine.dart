@@ -1,35 +1,156 @@
 import 'package:flutter/material.dart';
+import 'package:lock_in_twin/items/exercises.dart';
 import 'package:lock_in_twin/main.dart';
 
-class CreateRoutine extends StatefulWidget{
+class CreateRoutine extends StatefulWidget {
   const CreateRoutine({super.key});
-
   @override
   State<StatefulWidget> createState() {
     return _CreateRoutineState();
   }
 }
 
-class _CreateRoutineState extends State<CreateRoutine>{
+
+class _CreateRoutineState extends State<CreateRoutine> {
   Color mainBg = const Color(0xFF302e2e);
 
-  var _exerciseCounter= 0;
-
-  final Map<String, List<dynamic>> _exercises = {
-    "Push Ups": ["Push Ups", "Upper Body", Icon(Icons.fitness_center), false],
-    "Squats": ["Squats", "Lower Body", Icon(Icons.airline_seat_legroom_extra_sharp), false],
-    "Glute Bridges": ["Glute Bridges", "Lower Body", Icon(Icons.airline_seat_legroom_extra_sharp), false],
-    "Pull Ups": ["Pull Ups", "Upper Body", Icon(Icons.fitness_center), false],
-    "Plank": ["Plank", "Core", Icon(Icons.fitness_center), false],
-    "Plank1": ["Plank1", "Core", Icon(Icons.fitness_center), false],
-    "Plank2": ["Plank2", "Core", Icon(Icons.fitness_center), false],
-    "Plank3": ["Plank3", "Core", Icon(Icons.fitness_center), false],
-    "Plank4": ["Plank4", "Core", Icon(Icons.fitness_center), false],
-    "Plank5": ["Plank5", "Core", Icon(Icons.fitness_center), false],
+  var _exerciseCounter = 0;
+  final Map<String, Exercises> _exercises = {
+    "Push Ups": Exercises(title: "Push Ups", subtitle: "Upper Body", icon: const Icon(Icons.fitness_center), isSelected: false),
+    "Squats": Exercises(title: "Squats", subtitle: "Lower Body", icon: const Icon(Icons.airline_seat_legroom_extra_sharp), isSelected: false),
+    "Glute Bridges": Exercises(title: "Glute Bridges", subtitle: "Lower Body", icon: const Icon(Icons.airline_seat_legroom_extra_sharp), isSelected: false),
+    "Pull Ups": Exercises(title: "Pull Ups", subtitle: "Upper Body", icon: const Icon(Icons.fitness_center), isSelected: false),
+    "Plank": Exercises(title: "Plank", subtitle: "Core", icon: const Icon(Icons.fitness_center), isSelected: false),
+    "Plank1": Exercises(title: "Plank1", subtitle: "Core", icon: const Icon(Icons.fitness_center), isSelected: false),
+    "Plank2": Exercises(title: "Plank2", subtitle: "Core", icon: const Icon(Icons.fitness_center), isSelected: false),
+    "Plank3": Exercises(title: "Plank3", subtitle: "Core", icon: const Icon(Icons.fitness_center), isSelected: false),
+    "Plank4": Exercises(title: "Plank4", subtitle: "Core", icon: const Icon(Icons.fitness_center), isSelected: false),
+    "Plank5": Exercises(title: "Plank5", subtitle: "Core", icon: const Icon(Icons.fitness_center), isSelected: false),
   };
+  final Map<String, Exercises> _selectedExercises = {};
 
-  final Map<String, List<dynamic>> _selectedExercises = {};
+  // helper functions and widgets
+  Widget _routineTitleContent() {
+    return TextField(
+      style: TextStyle(color: Colors.white),
+      decoration: InputDecoration(
+        labelText: 'Routine Name',
+        labelStyle: TextStyle(color: Colors.white70),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.white54),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.orange),
+        ),
+      ),
+    );
+  }
 
+  Widget _buildExerciseTile(String key) {
+    final ex = _exercises[key]!;
+
+    return ListTile(
+      leading: ex.icon,
+      tileColor: ex.isSelected ? Colors.orange : null,
+      onTap: () => _toggleExercise(key),
+      title: Text(ex.title, style: TextStyle(color: Colors.white)),
+      subtitle: Text(ex.subtitle, style: TextStyle(color: Colors.white70)),
+      trailing: Icon(
+        ex.isSelected ? Icons.backspace_outlined : Icons.add_circle_outline,
+        color: ex.isSelected ? Colors.white : Colors.orange,
+      ),
+    );
+  }
+
+  void _toggleExercise(String key) {
+    setState(() {
+      var exObj = _exercises[key]!;
+      exObj.isSelected = !exObj.isSelected;
+
+      if (exObj.isSelected) {
+        _selectedExercises[key] = exObj;
+        _exerciseCounter++;
+      } else {
+        _selectedExercises.remove(key);
+        _exerciseCounter--;
+      }
+
+      // Debugging prints
+      for (var ex in _selectedExercises.entries) {
+        print("Selected Exercise: ${ex.key}");
+      }
+      print("${exObj.title} selected");
+    });
+  }
+
+  Widget _continueButton(){
+    return ElevatedButton(
+      onPressed: () {
+        print("Routine Saved");
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => MyApp()),
+              (Route<dynamic> route) => false,
+        );
+      },
+
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.orange,
+      ),
+
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children:  _continueButtonContents(),
+      ),
+    );
+  }
+
+  List<Widget> _continueButtonContents(){
+    var children = <Widget>[];
+
+    children.add(
+        SizedBox(
+          height: 25,
+          width: 25,
+          child: Container(
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Text(
+              textAlign: TextAlign.center,
+              _exerciseCounter.toString(),
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 12,
+              ),
+            ),
+          ),
+        ),
+    );
+    children.add(
+      SizedBox(width: 10),
+    );
+    children.add(
+      Text(
+        'Continue',
+        style: TextStyle(fontSize: 18, color: Colors.white),
+      ),
+    );
+    children.add(
+      Icon(Icons.navigate_next, color: Colors.white,),
+    );
+
+    return children;
+  }
+
+
+
+
+  // main build method
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -37,175 +158,78 @@ class _CreateRoutineState extends State<CreateRoutine>{
       home: Builder(
         builder: (context) {
           return Scaffold(
-
             backgroundColor: mainBg,
 
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(70),
+              child: AppBar(
+                backgroundColor: Colors.black,
 
-            appBar: PreferredSize(preferredSize: Size.fromHeight(70), child:
-            AppBar(
-              backgroundColor: Colors.black,
-
-              leading: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Builder(
-                      builder: (BuildContext context){
-                        return IconButton(
-                            onPressed: (){
-                              print("Went to Home Page");
-                              Navigator.pushAndRemoveUntil(
-                                  context, 
-                                  MaterialPageRoute(builder: (context) => MyApp()),
-                                  (Route<dynamic> route) => false,
-                              );
-                            },
-                            icon: const Icon(
-                                Icons.cancel_outlined,
-                                color: Colors.orange,
-                                size: 30
-                            ),
-                        );
-                      }
-                  ),
-                ],
-              ),
-
-              title: Text(
-                "CREATE ROUTINE",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                ),
-              ),
-              centerTitle: true,
-            ),
-            ),
-
-            body:
-                SafeArea(child:
-                Column(
+                leading: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: TextField(
-                        style: TextStyle(color: Colors.white),
-                        decoration: InputDecoration(
-                          labelText: 'Routine Name',
-                          labelStyle: TextStyle(color: Colors.white70),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white54),
+                    Builder(
+                      builder: (BuildContext context) {
+                        return IconButton(
+                          onPressed: () {
+                            print("Went to Home Page");
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(builder: (context) => MyApp()),
+                              (Route<dynamic> route) => false,
+                            );
+                          },
+                          icon: const Icon(
+                            Icons.cancel_outlined,
+                            color: Colors.orange,
+                            size: 30,
                           ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.orange),
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    Expanded(
-                      child: ListView.separated(
-                        physics: AlwaysScrollableScrollPhysics(),
-                        itemBuilder: (BuildContext context, int index) {
-                          String key = _exercises.keys.elementAt(index);
-                          return ListTile(
-                            leading: _exercises[key]![2],
-                            onTap: () {
-                              setState(() {
-                                _exercises[key]![3] = !_exercises[key]![3];
-
-                                if (_exercises[key]![3]) {
-                                  _selectedExercises[key] = _exercises[key]!;
-                                  _exerciseCounter++;
-                                } else {
-                                  _selectedExercises.remove(key);
-                                  _exerciseCounter--;
-                                }
-
-                                //debugging prints
-                                for (var ex in _selectedExercises.entries) {
-                                  print("Selected Exercise: ${ex.key}");
-                                }
-                                print(_exercises[key]![0] + " selected" );
-
-                              });
-                            },
-                            tileColor: _exercises[key]![3] ? Colors.orange : null,
-
-                            title: Text(
-                              _exercises[key]![0],
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            subtitle: Text(
-                              _exercises[key]![1],
-                              style: TextStyle(color: Colors.white70),
-                            ),
-                            trailing: Icon(
-                              _exercises[key]![3] ? Icons.backspace_outlined:  Icons.add_circle_outline,
-                              color: _exercises[key]![3] ? Colors.white: Colors.orange,
-                            ),
-                          );
-                        },
-                        separatorBuilder: (BuildContext context, int index) {
-                          return Divider(color: Colors.white24);
-                        },
-                        itemCount: _exercises.length,
-                      ),
-                    ),
-
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // Logic to save the routine
-                          print("Routine Saved");
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(builder: (context) => MyApp()),
-                                (Route<dynamic> route) => false,
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.orange,
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Continue',
-                              style: TextStyle(
-                                fontSize: 22,
-                                color: Colors.white,
-                              ),
-                            ),
-                            SizedBox(width: 20),
-                            SizedBox(
-                              height: 25,
-                              width: 25,
-                              child: Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: Text(
-                                  textAlign: TextAlign.center,
-                                  _exerciseCounter.toString(),
-                                  style: TextStyle(color: Colors.black, fontSize: 12),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+                        );
+                      },
                     ),
                   ],
                 ),
+
+                title: Text(
+                  "CREATE ROUTINE",
+                  style: TextStyle(color: Colors.white, fontSize: 15),
                 ),
+                centerTitle: true,
+              ),
+            ),
+
+            body: SafeArea(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: _routineTitleContent(),
+                  ),
+
+                  Expanded(
+                    child: ListView.separated(
+                      physics: AlwaysScrollableScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) {
+                        String key = _exercises.keys.elementAt(index);
+                        return _buildExerciseTile(key);
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return Divider(color: Colors.white24);
+                      },
+                      itemCount: _exercises.length,
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: _continueButton(),
+                  ),
+                ],
+              ),
+            ),
           );
-        }
+        },
       ),
     );
   }
