@@ -12,7 +12,10 @@ class CreateRoutine extends StatefulWidget{
 
 class _CreateRoutineState extends State<CreateRoutine>{
   Color mainBg = const Color(0xFF302e2e);
-  Map<String, List<dynamic>> exercises = {
+
+  var _exerciseCounter= 0;
+
+  final Map<String, List<dynamic>> _exercises = {
     "Push Ups": ["Push Ups", "Upper Body", Icon(Icons.fitness_center), false],
     "Squats": ["Squats", "Lower Body", Icon(Icons.airline_seat_legroom_extra_sharp), false],
     "Glute Bridges": ["Glute Bridges", "Lower Body", Icon(Icons.airline_seat_legroom_extra_sharp), false],
@@ -25,7 +28,7 @@ class _CreateRoutineState extends State<CreateRoutine>{
     "Plank5": ["Plank5", "Core", Icon(Icons.fitness_center), false],
   };
 
-
+  final Map<String, List<dynamic>> _selectedExercises = {};
 
   @override
   Widget build(BuildContext context) {
@@ -104,35 +107,49 @@ class _CreateRoutineState extends State<CreateRoutine>{
                       child: ListView.separated(
                         physics: AlwaysScrollableScrollPhysics(),
                         itemBuilder: (BuildContext context, int index) {
-                          String key = exercises.keys.elementAt(index);
+                          String key = _exercises.keys.elementAt(index);
                           return ListTile(
-                            leading: exercises[key]![2],
+                            leading: _exercises[key]![2],
                             onTap: () {
                               setState(() {
-                                exercises[key]![3] = !exercises[key]![3];
-                                print(exercises[key]![0] + " selected" );
+                                _exercises[key]![3] = !_exercises[key]![3];
+
+                                if (_exercises[key]![3]) {
+                                  _selectedExercises[key] = _exercises[key]!;
+                                  _exerciseCounter++;
+                                } else {
+                                  _selectedExercises.remove(key);
+                                  _exerciseCounter--;
+                                }
+
+                                //debugging prints
+                                for (var ex in _selectedExercises.entries) {
+                                  print("Selected Exercise: ${ex.key}");
+                                }
+                                print(_exercises[key]![0] + " selected" );
+
                               });
                             },
-                            tileColor: exercises[key]![3] ? Colors.orange : null,
+                            tileColor: _exercises[key]![3] ? Colors.orange : null,
 
                             title: Text(
-                              exercises[key]![0],
+                              _exercises[key]![0],
                               style: TextStyle(color: Colors.white),
                             ),
                             subtitle: Text(
-                              exercises[key]![1],
+                              _exercises[key]![1],
                               style: TextStyle(color: Colors.white70),
                             ),
                             trailing: Icon(
-                              exercises[key]![3] ? Icons.backspace_outlined:  Icons.add_circle_outline,
-                              color: exercises[key]![3] ? Colors.white: Colors.orange,
+                              _exercises[key]![3] ? Icons.backspace_outlined:  Icons.add_circle_outline,
+                              color: _exercises[key]![3] ? Colors.white: Colors.orange,
                             ),
                           );
                         },
                         separatorBuilder: (BuildContext context, int index) {
                           return Divider(color: Colors.white24);
                         },
-                        itemCount: exercises.length,
+                        itemCount: _exercises.length,
                       ),
                     ),
 
@@ -151,12 +168,36 @@ class _CreateRoutineState extends State<CreateRoutine>{
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.orange,
                         ),
-                        child: Text(
-                          'Continue',
-                          style: TextStyle(
-                            fontSize: 24,
-                            color: Colors.white,
-                          ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Continue',
+                              style: TextStyle(
+                                fontSize: 22,
+                                color: Colors.white,
+                              ),
+                            ),
+                            SizedBox(width: 20),
+                            SizedBox(
+                              height: 25,
+                              width: 25,
+                              child: Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Text(
+                                  textAlign: TextAlign.center,
+                                  _exerciseCounter.toString(),
+                                  style: TextStyle(color: Colors.black, fontSize: 12),
+                                ),
+                              ),
+                            )
+                          ],
                         ),
                       ),
                     ),
