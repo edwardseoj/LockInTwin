@@ -1,17 +1,26 @@
-class Routines {
+import 'exercises.dart';
+
+class Routine{
   String _routineName = "";
+  static Map<String, Exercises> finalExercises = {};
+  static Map<String, Map<String, Exercises>> savedRoutines = {};
 
-  // May need to edit this later to be a more complex data structure
-  List<String> _exercises = [];
-  var _repetitions = 0;
-  var _sets = 0;
-
-  // Getters
   String get routineName => _routineName;
-  List<String> get exercises => _exercises;
-  get repetitions => _repetitions;
-  get sets => _sets;
+  set routineName(String value) {
+    _routineName = value;
 
-  // Setters
-  Routines(this._routineName, this._exercises, this._repetitions, this._sets);
+  } // functions for finalExercises
+  static copyExercises(Map<String, Exercises> mapToCopy ) {
+    finalExercises.clear();
+    finalExercises.addAll(mapToCopy);
+  }
+  static printExercises() {
+    for (var entry in finalExercises.entries) {
+      print('Key: ${entry.key}, Title: ${entry.value.title}, Selected: ${entry.value.isSelected}');
+    }
+  }
+
+  addRoutine(){
+    savedRoutines[routineName] = Map.from(finalExercises);
+  }
 }

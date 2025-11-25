@@ -6,6 +6,8 @@ class Exercises{
   Widget icon;
   bool isSelected;
 
+
+
   Exercises({
     required this.title,
     required this.subtitle,
