@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lock_in_twin/items/exercises.dart';
 import 'package:lock_in_twin/main.dart';
 
+import 'items/routines.dart';
+
 class CreateRoutine extends StatefulWidget {
   const CreateRoutine({super.key});
   @override
@@ -28,12 +30,12 @@ class _CreateRoutineState extends State<CreateRoutine> {
     "Plank5": Exercises(title: "Plank5", subtitle: "Core", icon: const Icon(Icons.fitness_center), isSelected: false),
   };
   final Map<String, Exercises> _selectedExercises = {};
+  final routineObj = Routine();
 
   // helper functions and widgets
   Widget _routineTitleContent() {
-    return TextField(
-      style: TextStyle(color: Colors.white),
-      decoration: InputDecoration(
+    return TextFormField(
+      decoration: const InputDecoration(
         labelText: 'Routine Name',
         labelStyle: TextStyle(color: Colors.white70),
         enabledBorder: OutlineInputBorder(
@@ -42,8 +44,12 @@ class _CreateRoutineState extends State<CreateRoutine> {
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.orange),
         ),
-      ),
+      ),onSaved: (value) {
+        routineObj.routineName = value ?? "";
+        print("Routine Name set to: ${routineObj.routineName}");
+      },
     );
+
   }
 
   Widget _buildExerciseTile(String key) {
@@ -84,9 +90,12 @@ class _CreateRoutineState extends State<CreateRoutine> {
   }
 
   Widget _continueButton(){
+    final routineObj = Routine();
     return ElevatedButton(
       onPressed: () {
+        Routine.copyExercises(_selectedExercises);
         print("Routine Saved");
+        Routine.printExercises();
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => MyApp()),
