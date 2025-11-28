@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import 'exercises.dart';
 
 class Routine{
@@ -20,20 +22,30 @@ class Routine{
   //debugging functions
   printExercises() {
     for (var entry in finalExercises.entries) {
-      print('Key: ${entry.key}, Title: ${entry.value.title}, Selected: ${entry.value.isSelected}');
-      print(""); // spacing
+      if (kDebugMode) {
+        print('Key: ${entry.key}, Title: ${entry.value.title}, Selected: ${entry.value.isSelected}');
+      }
+      if (kDebugMode) {
+        print("");
+      } // spacing
     }
   }
 
   printRoutines(){
     savedRoutines.forEach((routineName, exercisesMap) {
-      print("Routine: $routineName");
+      if (kDebugMode) {
+        print("Routine: $routineName");
+      }
 
       exercisesMap.forEach((exerciseKey, exercise) {
-        print("  $exerciseKey: $exercise");
+        if (kDebugMode) {
+          print("  $exerciseKey: $exercise");
+        }
       });
 
-      print(""); // spacing
+      if (kDebugMode) {
+        print("");
+      } // spacing
     });
   }
 }

@@ -1,5 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:lock_in_twin/create_routine_page/create_routine.dart';
+import 'package:lock_in_twin/create_routine.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,15 +10,12 @@ Widget _emptyRoutinesWidget() {
   return Center(
     child: Text(
       "No Routines",
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 40,
-      ),
+      style: TextStyle(color: Colors.white, fontSize: 40),
     ),
   );
 }
 
-class MyApp extends StatelessWidget{
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
@@ -26,46 +24,45 @@ class MyApp extends StatelessWidget{
     Color mainBg = const Color(0xFF302e2e);
 
     //for testing
-    List<String> routines = ["Morning Routine", "Workout Routine", "Evening Routine"];
-
+    List<String> routines = [
+      "Morning Routine",
+      "Workout Routine",
+      "Evening Routine",
+    ];
 
     return MaterialApp(
-
       debugShowCheckedModeBanner: false,
       home: Builder(
         builder: (context) {
           return Scaffold(
             backgroundColor: mainBg,
 
-
-            appBar: PreferredSize(preferredSize: Size.fromHeight(70), child:
-              AppBar(
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(70),
+              child: AppBar(
                 backgroundColor: appBarColor,
                 title: Center(
-                    child: Text(
-                      "Lock in Twin",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                      ),
-                    )
+                  child: Text(
+                    "FME",
+                    style: TextStyle(color: Colors.white, fontSize: 30),
+                  ),
                 ),
               ),
             ),
 
-
-
-            floatingActionButton: FloatingActionButton(onPressed: () {
-                print("Button pressed");
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                if (kDebugMode) {
+                  print("Button pressed");
+                }
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => CreateRoutine()),
+                  context,
+                  MaterialPageRoute(builder: (context) => CreateRoutine()),
                 );
               },
               backgroundColor: Colors.orange,
               child: Icon(Icons.add),
             ),
-
 
             body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -87,10 +84,7 @@ class MyApp extends StatelessWidget{
                         ),
                         child: Text(
                           routines[index],
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                          ),
+                          style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                       ),
                     );
@@ -98,24 +92,11 @@ class MyApp extends StatelessWidget{
                   separatorBuilder: (BuildContext context, int index) {
                     return SizedBox(height: 10);
                   },
-                      // ListTile(
-                      //
-                      //   title: Text(
-                      //     routines[i],
-                      //     style: TextStyle(
-                      //       color: Colors.white,
-                      //       fontSize: 20,
-                      //     ),
-                      //   ),
-                      // )
-
-                )
+                ),
               ],
             ),
-
-
           );
-        }
+        },
       ),
     );
   }
