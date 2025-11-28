@@ -3,18 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lock_in_twin/create_routine.dart';
 
+import 'main_widgets/build_routine_display.dart';
+
 void main() {
   runApp(const MyApp());
 }
 
-Widget _emptyRoutinesWidget() {
-  return Center(
-    child: Text(
-      "No Routines",
-      style: TextStyle(color: Colors.white, fontSize: 40),
-    ),
-  );
-}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -69,7 +63,6 @@ class MyApp extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 if (routines.isEmpty) _emptyRoutinesWidget(),
-
                 SlidableAutoCloseBehavior(
                   child: Center(
                     child: ListView.separated(
@@ -77,54 +70,9 @@ class MyApp extends StatelessWidget {
                       shrinkWrap: true,
                       itemCount: routines.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return Align(
-                          alignment: Alignment.center,
-                          child: ConstrainedBox(
-                            constraints: BoxConstraints(maxWidth: 300),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(20),
-                                bottomRight: Radius.circular(20),
-                              ),
-                              child: Slidable(
-                                groupTag: '0',
-                                endActionPane: ActionPane(
-                                  extentRatio: 0.25,
-                                  motion: const BehindMotion(),
-                                  children: [
-                                    SlidableAction(
-                                      onPressed: (context) {
-                                        if (kDebugMode) {
-                                          print("Delete ${routines[index]}");
-                                        }
-                                      },
-                                      backgroundColor: Colors.red,
-
-                                      icon: Icons.delete_outline,
-                                    ),
-                                  ],
-                                ),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey,
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20),
-                                      bottomLeft: Radius.circular(20),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    routines[index],
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+                        return BuildRoutineDisplay(
+                          index: index,
+                          routines: routines,
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) {
@@ -137,6 +85,18 @@ class MyApp extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+
+
+
+  // helper widget
+  Widget _emptyRoutinesWidget() {
+    return Center(
+      child: Text(
+        "No Routines",
+        style: TextStyle(color: Colors.white, fontSize: 40),
       ),
     );
   }
