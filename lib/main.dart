@@ -31,12 +31,6 @@ class MyApp extends StatelessWidget{
 
     return MaterialApp(
 
-      // doesn't work for some reason
-      // title:"Lock In Twin",
-      // theme: ThemeData(
-      //   colorScheme: ColorScheme.fromSeed(seedColor: mainBg)
-      // ),
-
       debugShowCheckedModeBanner: false,
       home: Builder(
         builder: (context) {
