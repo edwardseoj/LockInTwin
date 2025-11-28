@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lock_in_twin/create_routine.dart';
+import 'package:lock_in_twin/create_routine_page/create_routine.dart';
 
 void main() {
   runApp(const MyApp());
