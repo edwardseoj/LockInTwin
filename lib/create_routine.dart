@@ -6,50 +6,110 @@ import 'items/routines.dart';
 
 class CreateRoutine extends StatefulWidget {
   const CreateRoutine({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return _CreateRoutineState();
   }
 }
 
-
 class _CreateRoutineState extends State<CreateRoutine> {
   Color mainBg = const Color(0xFF302e2e);
 
   var _exerciseCounter = 0;
   final Map<String, Exercises> _exercises = {
-    "Push Ups": Exercises(title: "Push Ups", subtitle: "Upper Body", icon: const Icon(Icons.fitness_center), isSelected: false),
-    "Squats": Exercises(title: "Squats", subtitle: "Lower Body", icon: const Icon(Icons.airline_seat_legroom_extra_sharp), isSelected: false),
-    "Glute Bridges": Exercises(title: "Glute Bridges", subtitle: "Lower Body", icon: const Icon(Icons.airline_seat_legroom_extra_sharp), isSelected: false),
-    "Pull Ups": Exercises(title: "Pull Ups", subtitle: "Upper Body", icon: const Icon(Icons.fitness_center), isSelected: false),
-    "Plank": Exercises(title: "Plank", subtitle: "Core", icon: const Icon(Icons.fitness_center), isSelected: false),
-    "Plank1": Exercises(title: "Plank1", subtitle: "Core", icon: const Icon(Icons.fitness_center), isSelected: false),
-    "Plank2": Exercises(title: "Plank2", subtitle: "Core", icon: const Icon(Icons.fitness_center), isSelected: false),
-    "Plank3": Exercises(title: "Plank3", subtitle: "Core", icon: const Icon(Icons.fitness_center), isSelected: false),
-    "Plank4": Exercises(title: "Plank4", subtitle: "Core", icon: const Icon(Icons.fitness_center), isSelected: false),
-    "Plank5": Exercises(title: "Plank5", subtitle: "Core", icon: const Icon(Icons.fitness_center), isSelected: false),
+    "Push Ups": Exercises(
+      title: "Push Ups",
+      subtitle: "Upper Body",
+      icon: const Icon(Icons.fitness_center),
+      isSelected: false,
+    ),
+    "Squats": Exercises(
+      title: "Squats",
+      subtitle: "Lower Body",
+      icon: const Icon(Icons.airline_seat_legroom_extra_sharp),
+      isSelected: false,
+    ),
+    "Glute Bridges": Exercises(
+      title: "Glute Bridges",
+      subtitle: "Lower Body",
+      icon: const Icon(Icons.airline_seat_legroom_extra_sharp),
+      isSelected: false,
+    ),
+    "Pull Ups": Exercises(
+      title: "Pull Ups",
+      subtitle: "Upper Body",
+      icon: const Icon(Icons.fitness_center),
+      isSelected: false,
+    ),
+    "Plank": Exercises(
+      title: "Plank",
+      subtitle: "Core",
+      icon: const Icon(Icons.fitness_center),
+      isSelected: false,
+    ),
+    "Plank1": Exercises(
+      title: "Plank1",
+      subtitle: "Core",
+      icon: const Icon(Icons.fitness_center),
+      isSelected: false,
+    ),
+    "Plank2": Exercises(
+      title: "Plank2",
+      subtitle: "Core",
+      icon: const Icon(Icons.fitness_center),
+      isSelected: false,
+    ),
+    "Plank3": Exercises(
+      title: "Plank3",
+      subtitle: "Core",
+      icon: const Icon(Icons.fitness_center),
+      isSelected: false,
+    ),
+    "Plank4": Exercises(
+      title: "Plank4",
+      subtitle: "Core",
+      icon: const Icon(Icons.fitness_center),
+      isSelected: false,
+    ),
+    "Plank5": Exercises(
+      title: "Plank5",
+      subtitle: "Core",
+      icon: const Icon(Icons.fitness_center),
+      isSelected: false,
+    ),
   };
   final Map<String, Exercises> _selectedExercises = {};
   final routineObj = Routine();
+  final _formKey = GlobalKey<FormState>();
 
   // helper functions and widgets
   Widget _routineTitleContent() {
-    return TextFormField(
-      decoration: const InputDecoration(
-        labelText: 'Routine Name',
-        labelStyle: TextStyle(color: Colors.white70),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white54),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.orange),
-        ),
-      ),onSaved: (value) {
-        routineObj.routineName = value ?? "";
-        print("Routine Name set to: ${routineObj.routineName}");
-      },
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          TextFormField(
+            style: TextStyle(color: Colors.white),
+            decoration: const InputDecoration(
+              labelText: 'Routine Name',
+              labelStyle: TextStyle(color: Colors.white70),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.white54),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.orange),
+              ),
+            ),
+            onSaved: (value) {
+              routineObj.routineName = value.toString();
+              print("Routine Name set to: ${routineObj.routineName}");
+            },
+          ),
+        ],
+        // )
+      ),
     );
-
   }
 
   Widget _buildExerciseTile(String key) {
@@ -89,75 +149,69 @@ class _CreateRoutineState extends State<CreateRoutine> {
     });
   }
 
-  Widget _continueButton(){
-    final routineObj = Routine();
+  Widget _continueButton() {
     return ElevatedButton(
       onPressed: () {
+        // Save routine logic
+        if (_formKey.currentState!.validate()) {
+          _formKey.currentState!.save();   // <-- This triggers onSaved
+        }
         Routine.copyExercises(_selectedExercises);
-        print("Routine Saved");
-        Routine.printExercises();
+        routineObj.printExercises();
+        routineObj.addRoutine();
+        routineObj.printRoutines();
+
+        // Move to main page
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => MyApp()),
-              (Route<dynamic> route) => false,
+          (Route<dynamic> route) => false,
         );
+
+        print("Routine Saved");
       },
 
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.orange,
-      ),
-
+      // parent design
+      style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children:  _continueButtonContents(),
+        children: _continueButtonDesign(),
       ),
     );
   }
 
-  List<Widget> _continueButtonContents(){
+  List<Widget> _continueButtonDesign() {
+    // children widgets list
     var children = <Widget>[];
 
     children.add(
-        SizedBox(
-          height: 25,
-          width: 25,
-          child: Container(
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Text(
-              textAlign: TextAlign.center,
-              _exerciseCounter.toString(),
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 12,
-              ),
-            ),
+      SizedBox(
+        height: 25,
+        width: 25,
+        child: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Text(
+            textAlign: TextAlign.center,
+            _exerciseCounter.toString(),
+            style: TextStyle(color: Colors.black, fontSize: 12),
           ),
         ),
-    );
-    children.add(
-      SizedBox(width: 10),
-    );
-    children.add(
-      Text(
-        'Continue',
-        style: TextStyle(fontSize: 18, color: Colors.white),
       ),
     );
+    children.add(SizedBox(width: 10));
     children.add(
-      Icon(Icons.navigate_next, color: Colors.white,),
+      Text('Continue', style: TextStyle(fontSize: 18, color: Colors.white)),
     );
+    children.add(Icon(Icons.navigate_next, color: Colors.white));
 
     return children;
   }
-
-
-
 
   // main build method
   @override
@@ -169,6 +223,7 @@ class _CreateRoutineState extends State<CreateRoutine> {
           return Scaffold(
             backgroundColor: mainBg,
 
+            // App Bar
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(70),
               child: AppBar(
@@ -208,14 +263,17 @@ class _CreateRoutineState extends State<CreateRoutine> {
               ),
             ),
 
+            // body
             body: SafeArea(
               child: Column(
                 children: [
+                  // Routine title input
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: _routineTitleContent(),
                   ),
 
+                  //exercise list and logic
                   Expanded(
                     child: ListView.separated(
                       physics: AlwaysScrollableScrollPhysics(),
@@ -230,6 +288,7 @@ class _CreateRoutineState extends State<CreateRoutine> {
                     ),
                   ),
 
+                  // continue button and saving logic
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: _continueButton(),
