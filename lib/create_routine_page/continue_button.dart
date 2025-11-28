@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lock_in_twin/items/exercises.dart';
 
@@ -39,7 +39,9 @@ class ContinueButton extends StatelessWidget{
               (Route<dynamic> route) => false,
         );
 
-        print("Routine Saved");
+        if (kDebugMode) {
+          print("Routine Saved");
+        }
       },
 
       // parent design

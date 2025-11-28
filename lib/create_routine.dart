@@ -6,7 +6,7 @@ import 'package:lock_in_twin/create_routine_page/routine_title_form.dart';
 import 'package:lock_in_twin/items/exercises.dart';
 import 'package:lock_in_twin/main.dart';
 
-import '../items/routines.dart';
+import 'items/routines.dart';
 
 class CreateRoutine extends StatefulWidget {
   const CreateRoutine({super.key});
