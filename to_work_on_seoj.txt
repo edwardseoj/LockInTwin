@@ -1,0 +1,14 @@
+Improve app bar in main.dart
+    - looks too bland
+    - No logo
+
+Merge Sam's and Paolo's code into main
+    - test code with mine first
+
+Display routines
+
+Improve display routine design
+
+Add drag drop feature in create routine
+
+Increase continue button height in create routine
