@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../items/routines.dart';
+import 'package:lock_in_twin/items/routines.dart';
 
 class RoutineTitleForm extends StatelessWidget {
   final GlobalKey<FormState> formKey;

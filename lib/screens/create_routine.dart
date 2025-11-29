@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:lock_in_twin/create_routine_widgets/continue_button.dart';
-import 'package:lock_in_twin/create_routine_widgets/exercise_tile.dart';
-import 'package:lock_in_twin/create_routine_widgets/routine_title_form.dart';
+import 'package:lock_in_twin/screens/create_routine_widgets/continue_button.dart';
+import 'package:lock_in_twin/screens/create_routine_widgets/exercise_tile.dart';
+import 'package:lock_in_twin/screens/create_routine_widgets/routine_title_form.dart';
 import 'package:lock_in_twin/items/exercises.dart';
 
-import 'items/routines.dart';
+import '../items/routines.dart';
 
 class CreateRoutine extends StatefulWidget {
   final Routine routineObj;

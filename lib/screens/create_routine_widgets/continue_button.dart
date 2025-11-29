@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lock_in_twin/items/exercises.dart';
 
-import '../items/routines.dart';
+import 'package:lock_in_twin/items/routines.dart';
 
 class ContinueButton extends StatelessWidget{
   final GlobalKey<FormState> formKey;

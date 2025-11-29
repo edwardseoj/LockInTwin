@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../items/exercises.dart';
+import 'package:lock_in_twin/items/exercises.dart';
 
 class ExerciseTile extends StatelessWidget {
   final Exercises exercise;

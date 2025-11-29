@@ -26,77 +26,81 @@ class BuildRoutineDisplay extends StatelessWidget {
         constraints: BoxConstraints(maxWidth: 300),
 
         // may edit this for max width
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
+        child: Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
 
-          child: Slidable(
-            groupTag: '0',
-            // do not edit this. this is for auto closing other slidables
-            startActionPane: ActionPane(
-              extentRatio: 0.30,
-              motion: const BehindMotion(),
-              children: [
-                CustomSlidableAction(
-                  onPressed: (context) {
-                    if (kDebugMode) {
-                      print("Edit ${routineObj.savedRoutines[index]}");
-                    }
-                  },
-                  backgroundColor: Color(0xFF048BA8),
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      final iconSize = constraints.maxHeight * 0.40; // 45% of tile height
-                      return Center(
-                        child: Icon(Icons.edit_note_outlined, size: iconSize, color: Colors.white),
-                      );
-                    },
+              child: Slidable(
+                groupTag: '0',
+                // do not edit this. this is for auto closing other slidables
+                startActionPane: ActionPane(
+                  extentRatio: 0.30,
+                  motion: const BehindMotion(),
+                  children: [
+                    CustomSlidableAction(
+                      onPressed: (context) {
+                        if (kDebugMode) {
+                          print("Edit ${routineObj.savedRoutines[index]}");
+                        }
+                      },
+                      backgroundColor: Color(0xFF048BA8),
+                      child: LayoutBuilder(
+                        builder: (context, constraints) {
+                          final iconSize = constraints.maxHeight * 0.40; // 45% of tile height
+                          return Center(
+                            child: Icon(Icons.edit_note_outlined, size: iconSize, color: Colors.white),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                endActionPane: ActionPane(
+                  extentRatio: 0.30,
+                  motion: const BehindMotion(),
+                  children: [
+                    CustomSlidableAction(
+                      onPressed: (context) {
+                        if (kDebugMode) {
+                          print("Deleted ${routineObj.savedRoutines[index]}");
+                        }
+                      },
+                      backgroundColor: Colors.red,
+                      child: LayoutBuilder(
+                        builder: (context, constraints) {
+                          final iconSize = constraints.maxHeight * 0.30; // 45% of tile height
+                          return Center(
+                            child: Icon(Icons.delete_outline, size: iconSize, color: Colors.white),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+
+                // design
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(color: Colors.grey),
+                  child: Column(
+                    children: [
+                      Text(
+                        routineName,
+                        style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        exerciseTitles.join(", "),
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                        softWrap: true,
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-            endActionPane: ActionPane(
-              extentRatio: 0.30,
-              motion: const BehindMotion(),
-              children: [
-                CustomSlidableAction(
-                  onPressed: (context) {
-                    if (kDebugMode) {
-                      print("Deleted ${routineObj.savedRoutines[index]}");
-                    }
-                  },
-                  backgroundColor: Colors.red,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) {
-                      final iconSize = constraints.maxHeight * 0.30; // 45% of tile height
-                      return Center(
-                        child: Icon(Icons.delete_outline, size: iconSize, color: Colors.white),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-
-            // design
-            child: Container(
-              alignment: Alignment.center,
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(color: Colors.grey),
-              child: Column(
-                children: [
-                  Text(
-                    routineName,
-                    style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    exerciseTitles.join(", "),
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                    softWrap: true,
-                  ),
-                ],
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

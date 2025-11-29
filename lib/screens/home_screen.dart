@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 import 'create_routine.dart';
-import 'items/routines.dart';
-import 'main_widgets/build_routine_display.dart';
+import '../items/routines.dart';
+import 'package:lock_in_twin/screens/home_widgets/build_routine_display.dart';
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() => _MyAppState();
+  State<StatefulWidget> createState() => _HomeScreenState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _HomeScreenState extends State<HomeScreen> {
   Color appBarColor = const Color(0xFF000000);
   Color mainBg = const Color(0xFF302e2e);
   final routineObj = Routine();
@@ -22,52 +22,51 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     print("Saved routines: ${routineObj.savedRoutines.length}");
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Builder(
-        builder: (context) {
-          return Scaffold(
-            backgroundColor: mainBg,
+    return Builder(
+      builder: (context) {
+        return Scaffold(
+          backgroundColor: mainBg,
 
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(70),
-              child: AppBar(
-                backgroundColor: appBarColor,
-                title: Center(
-                  child: Text(
-                    "FME",
-                    style: TextStyle(color: Colors.white, fontSize: 30),
-                  ),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(70),
+            child: AppBar(
+              backgroundColor: appBarColor,
+              title: Center(
+                child: Text(
+                  "FME",
+                  style: TextStyle(color: Colors.white, fontSize: 30),
                 ),
               ),
             ),
+          ),
 
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                if (kDebugMode) {
-                  print("Button pressed");
-                }
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CreateRoutine(routineObj: routineObj),
-                  ),
-                ).then((_) {
-                  setState(() {});
-                });
-              },
-              backgroundColor: Colors.orange,
-              child: Icon(Icons.add),
-            ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              if (kDebugMode) {
+                print("Button pressed");
+              }
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CreateRoutine(routineObj: routineObj),
+                ),
+              ).then((_) {
+                setState(() {});
+              });
+            },
+            backgroundColor: Colors.orange,
+            child: Icon(Icons.add),
+          ),
 
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (routineObj.savedRoutines.isEmpty) _emptyRoutinesWidget(),
-                SlidableAutoCloseBehavior(
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (routineObj.savedRoutines.isEmpty) _emptyRoutinesWidget(),
+              Expanded(
+                child: SlidableAutoCloseBehavior(
                   child: Center(
                     child: ListView.separated(
-                      scrollDirection: Axis.vertical,
+                      // scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                       itemCount: routineObj.savedRoutines.length,
                       itemBuilder: (BuildContext context, int index) {
@@ -82,11 +81,11 @@ class _MyAppState extends State<MyApp> {
                     ),
                   ),
                 ),
-              ],
-            ),
-          );
-        },
-      ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
