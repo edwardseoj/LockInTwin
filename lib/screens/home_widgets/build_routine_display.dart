@@ -38,7 +38,9 @@ class BuildRoutineDisplay extends StatelessWidget {
               children: [
                 CustomSlidableAction(
                   onPressed: (context) {
-                    print("Edit ${routineObj.savedRoutines[index]}");
+                    if (kDebugMode) {
+                      print("Edit ${routineObj.savedRoutines[index]}");
+                    }
                   },
                   backgroundColor: Color(0xFF048BA8),
                   child: LayoutBuilder(
@@ -58,7 +60,9 @@ class BuildRoutineDisplay extends StatelessWidget {
               children: [
                 CustomSlidableAction(
                   onPressed: (context) {
-                    print("Deleted ${routineObj.savedRoutines[index]}");
+                    if (kDebugMode) {
+                      print("Deleted ${routineObj.savedRoutines[index]}");
+                    }
                   },
                   backgroundColor: Colors.red,
                   child: LayoutBuilder(

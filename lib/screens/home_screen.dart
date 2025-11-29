@@ -1,0 +1,102 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+
+import 'create_routine.dart';
+import 'items/routines.dart';
+import 'main_widgets/build_routine_display.dart';
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Color appBarColor = const Color(0xFF000000);
+  Color mainBg = const Color(0xFF302e2e);
+  final routineObj = Routine();
+
+  @override
+  Widget build(BuildContext context) {
+    print("Saved routines: ${routineObj.savedRoutines.length}");
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Builder(
+        builder: (context) {
+          return Scaffold(
+            backgroundColor: mainBg,
+
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(70),
+              child: AppBar(
+                backgroundColor: appBarColor,
+                title: Center(
+                  child: Text(
+                    "FME",
+                    style: TextStyle(color: Colors.white, fontSize: 30),
+                  ),
+                ),
+              ),
+            ),
+
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                if (kDebugMode) {
+                  print("Button pressed");
+                }
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CreateRoutine(routineObj: routineObj),
+                  ),
+                ).then((_) {
+                  setState(() {});
+                });
+              },
+              backgroundColor: Colors.orange,
+              child: Icon(Icons.add),
+            ),
+
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (routineObj.savedRoutines.isEmpty) _emptyRoutinesWidget(),
+                SlidableAutoCloseBehavior(
+                  child: Center(
+                    child: ListView.separated(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: routineObj.savedRoutines.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return BuildRoutineDisplay(
+                          index: index,
+                          routineObj: routineObj,
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return SizedBox(height: 20);
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  // helper widget
+  Widget _emptyRoutinesWidget() {
+    return Center(
+      child: Text(
+        "No Routines",
+        style: TextStyle(color: Colors.white, fontSize: 40),
+      ),
+    );
+  }
+}
