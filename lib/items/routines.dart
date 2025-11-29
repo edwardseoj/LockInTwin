@@ -6,14 +6,17 @@ class Routine{
   String routineName = "";
 
   static Map<String, Exercises> finalExercises = {};
-  static Map<String, Map<String, Exercises>> savedRoutines = {}; // functions for finalExercises
-  static copyExercises(Map<String, Exercises> mapToCopy ) {
+  Map<String, Map<String, Exercises>> savedRoutines = {};
+
+  // functions for finalExercises
+  copyExercises(Map<String, Exercises> mapToCopy ) {
     finalExercises.clear();
     finalExercises.addAll(mapToCopy);
   }
   addRoutine(){
     savedRoutines[routineName] = Map.from(finalExercises);
   }
+
 
 
 

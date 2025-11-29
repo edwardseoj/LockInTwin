@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:lock_in_twin/items/exercises.dart';
 
 import '../items/routines.dart';
-import '../main.dart';
 
 class ContinueButton extends StatelessWidget{
   final GlobalKey<FormState> formKey;
@@ -27,17 +26,18 @@ class ContinueButton extends StatelessWidget{
         if (formKey.currentState!.validate()) {
           formKey.currentState!.save();   // <-- This triggers onSaved
         }
-        Routine.copyExercises(selectedExercises);
+        routineObj.copyExercises(selectedExercises);
         routineObj.printExercises();
         routineObj.addRoutine();
         routineObj.printRoutines();
 
         // Move to main page
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => MyApp()),
-              (Route<dynamic> route) => false,
-        );
+        Navigator.pop(context);
+        // Navigator.pushAndRemoveUntil(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => MyApp()),
+        //       (Route<dynamic> route) => false,
+        // );
 
         if (kDebugMode) {
           print("Routine Saved");

@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lock_in_twin/create_routine.dart';
+import 'package:lock_in_twin/items/routines.dart';
 
 import 'main_widgets/build_routine_display.dart';
 
@@ -9,21 +10,21 @@ void main() {
   runApp(const MyApp());
 }
 
-
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    Color appBarColor = const Color(0xFF000000);
-    Color mainBg = const Color(0xFF302e2e);
+  State<StatefulWidget> createState() => _MyAppState();
+}
 
-    //for testing
-    List<String> routines = [
-      "Morning Routine",
-      "Workout Routine",
-      "Evening Routine",
-    ];
+class _MyAppState extends State<MyApp> {
+  Color appBarColor = const Color(0xFF000000);
+  Color mainBg = const Color(0xFF302e2e);
+  final routineObj = Routine();
+
+  @override
+  Widget build(BuildContext context) {
+    print("Saved routines: ${routineObj.savedRoutines.length}");
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -52,8 +53,12 @@ class MyApp extends StatelessWidget {
                 }
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CreateRoutine()),
-                );
+                  MaterialPageRoute(
+                    builder: (context) => CreateRoutine(routineObj: routineObj),
+                  ),
+                ).then((_) {
+                  setState(() {});
+                });
               },
               backgroundColor: Colors.orange,
               child: Icon(Icons.add),
@@ -62,21 +67,21 @@ class MyApp extends StatelessWidget {
             body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (routines.isEmpty) _emptyRoutinesWidget(),
+                if (routineObj.savedRoutines.isEmpty) _emptyRoutinesWidget(),
                 SlidableAutoCloseBehavior(
                   child: Center(
                     child: ListView.separated(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
-                      itemCount: routines.length,
+                      itemCount: routineObj.savedRoutines.length,
                       itemBuilder: (BuildContext context, int index) {
                         return BuildRoutineDisplay(
                           index: index,
-                          routines: routines,
+                          routineObj: routineObj,
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) {
-                        return SizedBox(height: 10);
+                        return SizedBox(height: 20);
                       },
                     ),
                   ),
@@ -88,8 +93,6 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-
-
 
   // helper widget
   Widget _emptyRoutinesWidget() {
