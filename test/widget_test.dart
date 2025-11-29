@@ -8,7 +8,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:lock_in_twin/main.dart';
 import 'package:lock_in_twin/screens/home_screen.dart';
 
 void main() {
