@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Container Example',
       home: Scaffold(
-        backgroundColor: AppColors.screenGrey, // ← USING COLOR CLASS
+        backgroundColor: AppColors.screenGrey,
         body: const Center(
           child: CustomContainer(),
         ),
@@ -50,12 +50,12 @@ class CustomContainer extends StatelessWidget {
       height: screenHeight * 0.8,
       padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
-        gradient: LinearGradient(     // ← removed const so it can use AppColors
+        gradient: LinearGradient(     
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            AppColors.gradientStart,  // ← USING COLOR CLASS
-            AppColors.gradientEnd,    // ← USING COLOR CLASS
+            AppColors.gradientStart,  
+            AppColors.gradientEnd,    
           ],
         ),
         borderRadius: BorderRadius.circular(12),
@@ -68,7 +68,7 @@ class CustomContainer extends StatelessWidget {
             flex: 6,
             child: Container(
               width: double.infinity,
-              color: AppColors.containerWhite,   // ← USING COLOR CLASS
+              color: AppColors.containerWhite,   
             ),
           ),
 
@@ -77,7 +77,7 @@ class CustomContainer extends StatelessWidget {
           // Routine name container
           Container(
             alignment: Alignment.center,
-            color: AppColors.containerWhite,      // ← USING COLOR CLASS
+            color: AppColors.containerWhite,      
             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
             child: const Text(
               "Insert Routine Name Here Finished",
@@ -95,7 +95,7 @@ class CustomContainer extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.buttonBlue,   // ← USING COLOR CLASS
+                backgroundColor: AppColors.buttonBlue,   
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(6),
                 ),
