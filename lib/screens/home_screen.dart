@@ -73,6 +73,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         return BuildRoutineDisplay(
                           index: index,
                           routineObj: routineObj,
+                          onDelete: (){
+                            setState(() {});
+                          }
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) {

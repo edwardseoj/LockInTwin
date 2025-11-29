@@ -8,11 +8,13 @@ import 'package:lock_in_twin/items/routines.dart';
 class BuildRoutineDisplay extends StatelessWidget {
   final index;
   final Routine routineObj;
+  final VoidCallback onDelete;
 
   const BuildRoutineDisplay({
     super.key,
     required this.index,
     required this.routineObj,
+    required this.onDelete,
   });
 
 
@@ -63,6 +65,10 @@ class BuildRoutineDisplay extends StatelessWidget {
                   children: [
                     CustomSlidableAction(
                       onPressed: (context) {
+                        if (routineObj.savedRoutines.isNotEmpty){
+                          routineObj.savedRoutines.remove(routineName);
+                          onDelete(); //refresh page
+                        }
                         if (kDebugMode) {
                           print("Deleted ${routineObj.savedRoutines[index]}");
                         }
