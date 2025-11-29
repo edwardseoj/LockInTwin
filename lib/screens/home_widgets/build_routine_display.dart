@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -23,9 +25,9 @@ class BuildRoutineDisplay extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: ConstrainedBox(
-        constraints: BoxConstraints(maxWidth: 300),
 
-        // may edit this for max width
+        // edit this for the width of routines
+        constraints: BoxConstraints(maxWidth: 300),
         child: Column(
           children: [
             ClipRRect(
@@ -33,7 +35,6 @@ class BuildRoutineDisplay extends StatelessWidget {
 
               child: Slidable(
                 groupTag: '0',
-                // do not edit this. this is for auto closing other slidables
                 startActionPane: ActionPane(
                   extentRatio: 0.30,
                   motion: const BehindMotion(),
@@ -47,7 +48,7 @@ class BuildRoutineDisplay extends StatelessWidget {
                       backgroundColor: Color(0xFF048BA8),
                       child: LayoutBuilder(
                         builder: (context, constraints) {
-                          final iconSize = constraints.maxHeight * 0.40; // 45% of tile height
+                          final iconSize = math.min(constraints.maxHeight * 0.35, 50.0);
                           return Center(
                             child: Icon(Icons.edit_note_outlined, size: iconSize, color: Colors.white),
                           );
@@ -69,7 +70,7 @@ class BuildRoutineDisplay extends StatelessWidget {
                       backgroundColor: Colors.red,
                       child: LayoutBuilder(
                         builder: (context, constraints) {
-                          final iconSize = constraints.maxHeight * 0.30; // 45% of tile height
+                          final iconSize = math.min(constraints.maxHeight * 0.25, 35.0);
                           return Center(
                             child: Icon(Icons.delete_outline, size: iconSize, color: Colors.white),
                           );
