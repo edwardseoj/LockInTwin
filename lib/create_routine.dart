@@ -4,12 +4,12 @@ import 'package:lock_in_twin/create_routine_widgets/continue_button.dart';
 import 'package:lock_in_twin/create_routine_widgets/exercise_tile.dart';
 import 'package:lock_in_twin/create_routine_widgets/routine_title_form.dart';
 import 'package:lock_in_twin/items/exercises.dart';
-import 'package:lock_in_twin/main.dart';
 
 import 'items/routines.dart';
 
 class CreateRoutine extends StatefulWidget {
-  const CreateRoutine({super.key});
+  final Routine routineObj;
+  const CreateRoutine({super.key, required this.routineObj});
 
   @override
   State<StatefulWidget> createState() => _CreateRoutineState();
@@ -18,9 +18,8 @@ class CreateRoutine extends StatefulWidget {
 class _CreateRoutineState extends State<CreateRoutine> {
   Color mainBg = const Color(0xFF302e2e);
 
-  final routineObj = Routine();
+  Routine get routineObj => widget.routineObj;
   final _formKey = GlobalKey<FormState>();
-
   var _exerciseCounter = 0;
 
   final Map<String, Exercises> _exercises = {
@@ -87,6 +86,7 @@ class _CreateRoutineState extends State<CreateRoutine> {
   };
   final Map<String, Exercises> _selectedExercises = {};
 
+
   // helper functions and widgets
   void _toggleExercise(String key) {
     setState(() {
@@ -136,11 +136,12 @@ class _CreateRoutineState extends State<CreateRoutine> {
                       if (kDebugMode) {
                         print("Went to Home Page");
                       }
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => MyApp()),
-                        (Route<dynamic> route) => false,
-                      );
+                      Navigator.pop(context);
+                      // Navigator.pushAndRemoveUntil(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => MyApp()),
+                      //   (Route<dynamic> route) => false,
+                      // );
                     },
                     icon: const Icon(
                       Icons.cancel_outlined,
