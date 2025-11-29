@@ -17,7 +17,6 @@ class BuildRoutineDisplay extends StatelessWidget {
     required this.onDelete,
   });
 
-
   @override
   Widget build(BuildContext context) {
     final routineName = routineObj.savedRoutines.keys.elementAt(index);
@@ -27,7 +26,6 @@ class BuildRoutineDisplay extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: ConstrainedBox(
-
         // edit this for the width of routines
         constraints: BoxConstraints(maxWidth: 300),
         child: Column(
@@ -50,9 +48,16 @@ class BuildRoutineDisplay extends StatelessWidget {
                       backgroundColor: Color(0xFF048BA8),
                       child: LayoutBuilder(
                         builder: (context, constraints) {
-                          final iconSize = math.min(constraints.maxHeight * 0.35, 50.0);
+                          final iconSize = math.min(
+                            constraints.maxHeight * 0.35,
+                            50.0,
+                          );
                           return Center(
-                            child: Icon(Icons.edit_note_outlined, size: iconSize, color: Colors.white),
+                            child: Icon(
+                              Icons.edit_note_outlined,
+                              size: iconSize,
+                              color: Colors.white,
+                            ),
                           );
                         },
                       ),
@@ -65,7 +70,7 @@ class BuildRoutineDisplay extends StatelessWidget {
                   children: [
                     CustomSlidableAction(
                       onPressed: (context) {
-                        if (routineObj.savedRoutines.isNotEmpty){
+                        if (routineObj.savedRoutines.isNotEmpty) {
                           routineObj.savedRoutines.remove(routineName);
                           onDelete(); //refresh page
                         }
@@ -76,9 +81,16 @@ class BuildRoutineDisplay extends StatelessWidget {
                       backgroundColor: Colors.red,
                       child: LayoutBuilder(
                         builder: (context, constraints) {
-                          final iconSize = math.min(constraints.maxHeight * 0.25, 35.0);
+                          final iconSize = math.min(
+                            constraints.maxHeight * 0.25,
+                            35.0,
+                          );
                           return Center(
-                            child: Icon(Icons.delete_outline, size: iconSize, color: Colors.white),
+                            child: Icon(
+                              Icons.delete_outline,
+                              size: iconSize,
+                              color: Colors.white,
+                            ),
                           );
                         },
                       ),
@@ -95,13 +107,35 @@ class BuildRoutineDisplay extends StatelessWidget {
                     children: [
                       Text(
                         routineName,
-                        style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
+                      SizedBox(height: 5,),
                       Text(
                         exerciseTitles.join(", "),
                         style: TextStyle(color: Colors.white, fontSize: 20),
                         softWrap: true,
                       ),
+                      SizedBox(height: 10,),
+                      ElevatedButton(
+                        onPressed: () {
+                          if(kDebugMode){
+                            print("Pressed start routine btn");
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.orange,
+                          padding: EdgeInsets.all(15),
+                        ),
+                        child: Text(
+                          "Start routine",
+                          style: TextStyle(fontSize: 20, color: Colors.black54),
+                        ),
+                      ),
+                      SizedBox(height: 5,),
                     ],
                   ),
                 ),
