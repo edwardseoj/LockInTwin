@@ -6,9 +6,11 @@ import 'package:lock_in_twin/screens/create_routine_widgets/routine_title_form.d
 import 'package:lock_in_twin/items/exercises.dart';
 
 import '../items/routines.dart';
+import 'create_routine_widgets/create_routine_appbar.dart';
 
 class CreateRoutine extends StatefulWidget {
   final Routine routineObj;
+
   const CreateRoutine({super.key, required this.routineObj});
 
   @override
@@ -86,8 +88,7 @@ class _CreateRoutineState extends State<CreateRoutine> {
   };
   final Map<String, Exercises> _selectedExercises = {};
 
-
-  // helper functions and widgets
+  // helper functions
   void _toggleExercise(String key) {
     setState(() {
       var exObj = _exercises[key]!;
@@ -122,44 +123,7 @@ class _CreateRoutineState extends State<CreateRoutine> {
       // App Bar
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(70),
-        child: AppBar(
-          backgroundColor: Colors.black,
-
-          leading: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Builder(
-                builder: (BuildContext context) {
-                  return IconButton(
-                    onPressed: () {
-                      if (kDebugMode) {
-                        print("Went to Home Page");
-                      }
-                      Navigator.pop(context);
-                      // Navigator.pushAndRemoveUntil(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => MyApp()),
-                      //   (Route<dynamic> route) => false,
-                      // );
-                    },
-                    icon: const Icon(
-                      Icons.cancel_outlined,
-                      color: Colors.orange,
-                      size: 30,
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-
-          title: Text(
-            "CREATE ROUTINE",
-            style: TextStyle(color: Colors.white, fontSize: 15),
-          ),
-          centerTitle: true,
-        ),
+        child: CreateRoutineAppBar().buildAppBar(context),
       ),
 
       // body
@@ -184,10 +148,8 @@ class _CreateRoutineState extends State<CreateRoutine> {
                     onTap: () => _toggleExercise(key),
                   );
                 },
-
                 separatorBuilder: (BuildContext context, int index) =>
                     Divider(color: Colors.white24),
-
                 itemCount: _exercises.length,
               ),
             ),
