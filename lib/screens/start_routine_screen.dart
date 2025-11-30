@@ -24,11 +24,13 @@ class _StartRoutineState extends State<StartRoutine> {
     return Scaffold(
       backgroundColor: mainBg,
 
+      // app bar
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(70),
         child: CustomAppBar(),
       ),
 
+      // main contents
       body: Center(
         child: Column(
           children: [
