@@ -61,16 +61,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: SlidableAutoCloseBehavior(
                   child: Center(
                     child: ListView.separated(
-                      // scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                       itemCount: routineObj.savedRoutines.length,
                       itemBuilder: (BuildContext context, int index) {
                         return BuildRoutineDisplay(
                           index: index,
                           routineObj: routineObj,
-                          onDelete: (){
+                          onDelete: () {
                             setState(() {});
-                          }
+                          },
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) {
