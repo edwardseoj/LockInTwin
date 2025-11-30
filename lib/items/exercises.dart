@@ -10,6 +10,10 @@ class Exercises{
 
 
 
+  int set = 0;
+  int rep = 0;
+
+
 
 
   Exercises({
