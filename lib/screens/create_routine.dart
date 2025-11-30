@@ -133,7 +133,7 @@ class _CreateRoutineState extends State<CreateRoutine> {
             // Routine title input
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: RoutineTitleForm(formKey: _formKey, routine: routineObj),
+              child: RoutineTitleForm(formKey: _formKey, routineObj: routineObj),
             ),
 
             //exercise list and logic
