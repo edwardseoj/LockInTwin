@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:lock_in_twin/screens/home_widgets/appbar.dart';
 
 import 'create_routine.dart';
 import '../items/routines.dart';
@@ -20,7 +21,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("Saved routines: ${routineObj.savedRoutines.length}");
+    if (kDebugMode) {
+      print("Saved routines: ${routineObj.savedRoutines.length}");
+    }
 
     return Builder(
       builder: (context) {
@@ -29,15 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(70),
-            child: AppBar(
-              backgroundColor: appBarColor,
-              title: Center(
-                child: Text(
-                  "FME",
-                  style: TextStyle(color: Colors.white, fontSize: 30),
-                ),
-              ),
-            ),
+            child: CustomAppBar(),
           ),
 
           floatingActionButton: FloatingActionButton(

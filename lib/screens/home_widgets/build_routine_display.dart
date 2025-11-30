@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lock_in_twin/items/routines.dart';
+import 'package:lock_in_twin/screens/start_routine_screen.dart';
 
 class BuildRoutineDisplay extends StatelessWidget {
   final index;
@@ -125,6 +126,12 @@ class BuildRoutineDisplay extends StatelessWidget {
                           if(kDebugMode){
                             print("Pressed start routine btn");
                           }
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => StartRoutine(routineObj: routineObj),
+                            )
+                          );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.orange,

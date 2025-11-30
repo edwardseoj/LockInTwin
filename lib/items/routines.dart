@@ -9,11 +9,11 @@ class Routine{
   Map<String, Map<String, Exercises>> savedRoutines = {};
 
   // functions for finalExercises
-  copyExercises(Map<String, Exercises> mapToCopy ) {
+  void copyExercises(Map<String, Exercises> mapToCopy ) {
     finalExercises.clear();
     finalExercises.addAll(mapToCopy);
   }
-  addRoutine(){
+  void addRoutine(){
     savedRoutines[routineName] = Map.from(finalExercises);
   }
 
@@ -23,7 +23,7 @@ class Routine{
 
 
   //debugging functions
-  printExercises() {
+  void printExercises() {
     for (var entry in finalExercises.entries) {
       if (kDebugMode) {
         print('Key: ${entry.key}, Title: ${entry.value.title}, Selected: ${entry.value.isSelected}');
@@ -34,7 +34,7 @@ class Routine{
     }
   }
 
-  printRoutines(){
+  void printRoutines(){
     savedRoutines.forEach((routineName, exercisesMap) {
       if (kDebugMode) {
         print("Routine: $routineName");

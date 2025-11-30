@@ -8,7 +8,7 @@ class ContinueButton extends StatelessWidget{
   final GlobalKey<FormState> formKey;
   final Routine routineObj;
   final Map<String, Exercises> selectedExercises;
-  final exerciseCounter;
+  final int exerciseCounter;
 
   const ContinueButton({
     super.key,
