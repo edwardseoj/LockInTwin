@@ -129,7 +129,7 @@ class BuildRoutineDisplay extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => StartRoutine(routineObj: routineObj),
+                                builder: (context) => StartRoutine(routineObj: routineObj, index: index),
                             )
                           );
                         },
