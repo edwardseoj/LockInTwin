@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lock_in_twin/items/exercises.dart';
 
 import 'package:lock_in_twin/items/routines.dart';
+import 'package:lock_in_twin/screens/create_routine_2.dart';
 
 class ContinueButton extends StatelessWidget{
   final GlobalKey<FormState> formKey;
@@ -24,20 +25,23 @@ class ContinueButton extends StatelessWidget{
       onPressed: () {
         // Save routine logic
         if (formKey.currentState!.validate()) {
-          formKey.currentState!.save();   // <-- This triggers onSaved
+          formKey.currentState!.save();
         }
         routineObj.copyExercises(selectedExercises);
         routineObj.printExercises();
         routineObj.addRoutine();
         routineObj.printRoutines();
 
-        // Move to main page
-        Navigator.pop(context);
-        // Navigator.pushAndRemoveUntil(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => MyApp()),
-        //       (Route<dynamic> route) => false,
-        // );
+        // moves to home page
+        // change this muna
+        // logic may need to change here
+        // saves the routine on create_routine, but does not delete when you back up form create_routine2
+        Navigator.push(context,
+            MaterialPageRoute(
+                builder: (context) => CreateRoutine2(routineObj: routineObj, formKey: formKey)
+            )
+        );
+        
 
         if (kDebugMode) {
           print("Routine Saved");

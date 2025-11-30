@@ -3,12 +3,12 @@ import 'package:lock_in_twin/items/routines.dart';
 
 class RoutineTitleForm extends StatelessWidget {
   final GlobalKey<FormState> formKey;
-  final Routine routine;
+  final Routine routineObj;
 
   const RoutineTitleForm({
     super.key,
     required this.formKey,
-    required this.routine,
+    required this.routineObj,
   });
 
   @override
@@ -28,7 +28,7 @@ class RoutineTitleForm extends StatelessWidget {
           ),
         ),
         onSaved: (value) {
-          routine.routineName = value ?? '';
+          routineObj.routineName = value ?? '';
         },
       ),
     );
