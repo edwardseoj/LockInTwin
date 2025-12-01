@@ -34,9 +34,6 @@ class ContinueButton extends StatelessWidget{
 
 
         // moves to home page
-        // change this muna
-        // logic may need to change here
-        // saves the routine on create_routine, but does not delete when you back up form create_routine2
         Navigator.push(context,
             MaterialPageRoute(
                 builder: (context) => CreateRoutine2(routineObj: routineObj, formKey: formKey),
@@ -51,6 +48,7 @@ class ContinueButton extends StatelessWidget{
       },
 
       // parent design
+      // COLORING: Button Color
       style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -61,8 +59,9 @@ class ContinueButton extends StatelessWidget{
     );
   }
 
+
+  // Helper widgets
   List<Widget> _continueButtonDesign() {
-    // children widgets list
     var children = <Widget>[];
 
     children.add(
@@ -72,6 +71,8 @@ class ContinueButton extends StatelessWidget{
         child: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
+
+            // COLORING: Inside the Button - Circle Exercise Counter Color, beside text
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
           ),
@@ -85,8 +86,14 @@ class ContinueButton extends StatelessWidget{
     );
     children.add(SizedBox(width: 10));
     children.add(
+
+
+      // COLORING: Inside the Button - Text Color
       Text('Continue', style: TextStyle(fontSize: 18, color: Colors.white)),
     );
+
+
+    // COLORING: Inside the Button - Arrow Icon Color
     children.add(Icon(Icons.navigate_next, color: Colors.white));
 
     return children;

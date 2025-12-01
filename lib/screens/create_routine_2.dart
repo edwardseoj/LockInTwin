@@ -110,9 +110,13 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
             child: Text(
               routineName,
               style: const TextStyle(
+
+                // COLORING: Text Color - Routine Title
                 color: Colors.white,
                 fontSize: 30,
                 decoration: TextDecoration.underline,
+
+                // COLORING: Underline Color - Routine Title
                 decorationColor: Colors.white,
               ),
             ),
@@ -133,6 +137,8 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
                       margin: const EdgeInsets.all(12),
                       padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
+
+                        // COLORING: Container Background Color - for each routine
                         color: Colors.white12,
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -155,9 +161,13 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
                                   exercise.title,
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(
+
+                                    // COLORING: Text Color - Exercise Name
                                     color: Colors.white,
                                     fontSize: 30,
                                     decoration: TextDecoration.underline,
+
+                                    // COLORING: Underline Color - Exercise Name
                                     decorationColor: Colors.white,
                                   ),
                                 ),
@@ -178,11 +188,17 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
                                     // Set #
                                     Expanded(
                                       child: TextFormField(
+
+                                        // COLORING: Text Color - Set Input text color
                                         style: const TextStyle(color: Colors.white),
                                         decoration: const InputDecoration(
                                           labelText: "Set #",
+
+                                          // COLORING: Label Color - Set Label
                                           labelStyle: TextStyle(color: Colors.white70),
+
                                           enabledBorder: UnderlineInputBorder(
+                                            // COLORING: Underline Color - Set Label
                                             borderSide: BorderSide(color: Colors.white38),
                                           ),
                                         ),
@@ -201,9 +217,13 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
                                     // Reps
                                     Expanded(
                                       child: TextFormField(
+
+                                        // COLORING: Input Color - Rep Input color
                                         style: const TextStyle(color: Colors.white),
                                         decoration: InputDecoration(
                                           labelText: "Reps",
+
+                                          // COLORING: Label Color - Rep Label
                                           labelStyle: const TextStyle(color: Colors.white70),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
