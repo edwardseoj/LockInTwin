@@ -5,7 +5,7 @@ import 'exercises.dart';
 class Routine{
   String routineName = "";
 
-  static Map<String, Exercises> finalExercises = {};
+  Map<String, Exercises> finalExercises = {};
   Map<String, Map<String, Exercises>> savedRoutines = {};
 
   // functions for finalExercises

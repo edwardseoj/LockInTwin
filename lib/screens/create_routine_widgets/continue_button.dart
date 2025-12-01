@@ -32,13 +32,15 @@ class ContinueButton extends StatelessWidget{
         routineObj.addRoutine();
         routineObj.printRoutines();
 
+
         // moves to home page
         // change this muna
         // logic may need to change here
         // saves the routine on create_routine, but does not delete when you back up form create_routine2
         Navigator.push(context,
             MaterialPageRoute(
-                builder: (context) => CreateRoutine2(routineObj: routineObj, formKey: formKey)
+                builder: (context) => CreateRoutine2(routineObj: routineObj, formKey: formKey),
+              settings: const RouteSettings(name: "/CreateRoutine2"),
             )
         );
         

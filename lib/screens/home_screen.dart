@@ -44,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => CreateRoutine(routineObj: routineObj),
+                  settings: const RouteSettings(name: "/CreateRoutine1"),
                 ),
               ).then((_) {
                 setState(() {});

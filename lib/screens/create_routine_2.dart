@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lock_in_twin/items/routines.dart';
 
-import 'create_routine_widgets/create_routine_appbar.dart';
+import 'create_routine_widgets/custom_appbar_2.dart';
 
 class CreateRoutine2 extends StatefulWidget {
   final Routine routineObj;
@@ -20,13 +20,15 @@ class CreateRoutine2 extends StatefulWidget {
 class _CreateRoutine2State extends State<CreateRoutine2> {
   late List<List<Map<String, String>>> exerciseSets;
 
+  Routine get routineObj => widget.routineObj;
+
   @override
   void initState() {
     super.initState();
 
     /// Create 1 empty row (set+reps) for each exercise
     exerciseSets = List.generate(
-      widget.routineObj.savedRoutines.length,
+      widget.routineObj.finalExercises.length,
       (_) => [
         {"set": "", "reps": ""},
       ],
@@ -35,6 +37,10 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
 
   @override
   Widget build(BuildContext context) {
+    print("savedRoutines: ${widget.routineObj.savedRoutines}");
+    print("Total exercises: ${widget.routineObj.savedRoutines.length}");
+    print("Inner map values: ${widget.routineObj.savedRoutines.values}");
+
     Color mainBg = const Color(0xFF302e2e);
     final routineName = widget.routineObj.savedRoutines.keys.elementAt(
       widget.routineObj.savedRoutines.length - 1,
@@ -44,7 +50,7 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
       backgroundColor: mainBg,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70),
-        child: CreateRoutineAppBar().buildAppBar(context),
+        child: CreateRoutineAppBar2(routineObj: routineObj,).buildAppBar(context),
       ),
 
       body: Column(
@@ -64,12 +70,14 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
 
           Expanded(
             child: ListView.builder(
-              itemCount: widget.routineObj.savedRoutines.length,
+
+              //error here
+              itemCount: widget.routineObj.finalExercises.length,
               itemBuilder: (context, exerciseIndex) {
-                final exerciseMap = widget.routineObj.savedRoutines.values
+                final exerciseMap = widget.routineObj.finalExercises.values
                     .elementAt(exerciseIndex);
 
-                final exerciseTitle = exerciseMap.values.first.title;
+                final exerciseTitle = exerciseMap.title;
 
                 return Container(
                   margin: const EdgeInsets.all(12),
