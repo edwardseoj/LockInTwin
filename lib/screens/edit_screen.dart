@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lock_in_twin/items/app_colors.dart';
 import 'create_routine_widgets/custom_appbar_2.dart';
 import '../items/routines.dart';
 
@@ -98,7 +99,7 @@ class _EditRoutineState extends State<EditRoutine> {
 
   @override
   Widget build(BuildContext context) {
-    Color mainBg = const Color(0xFF302e2e);
+    Color mainBg = AppColors.screenGrey;
 
     return Scaffold(
       backgroundColor: mainBg,
@@ -122,7 +123,7 @@ class _EditRoutineState extends State<EditRoutine> {
                     borderSide: BorderSide(color: Colors.white38),
                   ),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.orange, width: 2),
+                    borderSide: BorderSide(color: AppColors.containerColor, width: 2),
                   ),
                 ),
               ),
@@ -143,8 +144,9 @@ class _EditRoutineState extends State<EditRoutine> {
                         margin: const EdgeInsets.all(12),
                         padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
-                          color: Colors.white12,
+                          color: AppColors.containerColor,
                           borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: AppColors.borderColor, width: 2,),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -280,8 +282,7 @@ class _EditRoutineState extends State<EditRoutine> {
                               child: ElevatedButton(
                                 onPressed: () {
                                   setState(() {
-                                    int nextSetNumber =
-                                        exerciseSets[exerciseIndex].length + 1;
+                                    int nextSetNumber = exerciseSets[exerciseIndex].length + 1;
                                     exerciseSets[exerciseIndex].add({
                                       "set": nextSetNumber.toString(),
                                       "reps": "",
@@ -289,9 +290,24 @@ class _EditRoutineState extends State<EditRoutine> {
                                     updateExerciseSets(exerciseIndex);
                                   });
                                 },
-                                child: const Text("Add Set"),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.buttonBlue, // your app color
+                                  side: const BorderSide(color: Colors.black, width: 2), // black border
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8), // rounded corners
+                                  ),
+                                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                                ),
+                                child: const Text(
+                                  "Add Set",
+                                  style: TextStyle(
+                                    color: Colors.white, // text color
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
-                            ),
+                            )
                           ],
                         ),
                       );
@@ -311,7 +327,22 @@ class _EditRoutineState extends State<EditRoutine> {
                     showInvalidRepsPopup();
                   }
                 },
-                child: const Text("Save Edits"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.buttonBlue, // your app color
+                  side: const BorderSide(color: Colors.black, width: 2), // black border
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8), // rounded corners
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                ),
+                child: const Text(
+                  "Save Edits",
+                  style: TextStyle(
+                    color: Colors.white, // text color
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
           ],

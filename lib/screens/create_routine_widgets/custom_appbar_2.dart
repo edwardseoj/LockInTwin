@@ -28,7 +28,7 @@ class CreateRoutineAppBar2 extends StatelessWidget {
           Icons.cancel_outlined,
 
           // color for the x button
-          color: Colors.orange,
+          color: Colors.red,
           size: 30,
         ),
       ),

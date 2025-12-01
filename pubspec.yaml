@@ -65,6 +65,11 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/flex_arm.json
+    - assets/icons/push-ups.png
+    - assets/icons/squats.png
+    - assets/icons/glutes.png
+    - assets/icons/pull-ups.png
+    - assets/icons/planks.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lock_in_twin/items/app_colors.dart';
 import 'package:lock_in_twin/screens/start_routine_widgets/build_excercise_row.dart';
 import '../items/routines.dart';
 import 'home_widgets/appbar.dart';
@@ -61,7 +62,7 @@ class _StartRoutineState extends State<StartRoutine> {
     final routineExercises = routineObj.savedRoutines.values.elementAt(index);
 
     return Scaffold(
-      backgroundColor: mainBg,
+      backgroundColor: AppColors.screenGrey,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70),
         child: CustomAppBar(),
@@ -122,7 +123,7 @@ class _StartRoutineState extends State<StartRoutine> {
                   LinearProgressIndicator(
                     value: completionPercent / 100,
                     backgroundColor: Colors.white12,
-                    color: Colors.orange,
+                    color: AppColors.progressColor,
                     minHeight: 8,
                   ),
                   const SizedBox(height: 8),
@@ -155,11 +156,12 @@ class _StartRoutineState extends State<StartRoutine> {
                     },
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size.fromHeight(50),
-                      backgroundColor: Colors.orange,
+                      backgroundColor: AppColors.buttonBlue,
+                      side: const BorderSide(color: AppColors.borderColor, width: 2,),
                     ),
                     child: const Text(
                       "Finish routine",
-                      style: TextStyle(color: Colors.black54, fontSize: 20),
+                      style: TextStyle(color: AppColors.iconTextWhite, fontSize: 20),
                     ),
                   ),
                 ],

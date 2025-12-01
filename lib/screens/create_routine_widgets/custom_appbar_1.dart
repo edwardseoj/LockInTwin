@@ -15,7 +15,7 @@ class CreateRoutineAppBar extends StatelessWidget {
         },
         icon: const Icon(
           Icons.cancel_outlined,
-          color: Colors.orange,
+          color: Colors.red,
           size: 30,
         ),
       ),

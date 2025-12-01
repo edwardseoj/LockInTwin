@@ -52,12 +52,15 @@ class _HomeScreenState extends State<HomeScreen> {
               });
             },
 
-
-            // COLORING: Floating Action Button
             backgroundColor: AppColors.buttonBlue,
             child: const Icon(Icons.add, color: AppColors.iconTextWhite),
-          ),
 
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+              side: BorderSide(color: Colors.black, width: 2),
+            ),
+          ),
+          
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

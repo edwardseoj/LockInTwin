@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lock_in_twin/items/app_colors.dart';
 import 'package:lock_in_twin/items/exercises.dart';
 
 class ExerciseTile extends StatelessWidget {
@@ -23,12 +24,21 @@ class ExerciseTile extends StatelessWidget {
         exercise.subtitle,
         style: const TextStyle(color: Colors.white70),
       ),
-      tileColor: exercise.isSelected ? Colors.orange : null,
-      trailing: Icon(
-        exercise.isSelected
-            ? Icons.backspace_outlined
-            : Icons.add_circle_outline,
-        color: exercise.isSelected ? Colors.white : Colors.orange,
+      tileColor: exercise.isSelected ? AppColors.containerColor : null,
+      trailing: Container(
+        decoration: BoxDecoration(
+          color: AppColors.buttonBlue, 
+          shape: BoxShape.circle,
+          border: Border.all(color: AppColors.borderColor, width: 2,),
+        ),
+        padding: const EdgeInsets.all(6),
+        child: Icon(
+          exercise.isSelected
+              ? Icons.backspace_outlined
+              : Icons.add, // solid plus icon
+          color: exercise.isSelected ? Colors.red : AppColors.iconTextWhite,
+          size: 24,
+        ),
       ),
       onTap: onTap,
     );

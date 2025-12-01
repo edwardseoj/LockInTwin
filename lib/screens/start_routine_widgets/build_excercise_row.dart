@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lock_in_twin/items/app_colors.dart';
 
 class BuildExerciseRow extends StatefulWidget {
   final String title;
@@ -41,8 +42,9 @@ class _BuildExerciseRowState extends State<BuildExerciseRow> {
 
     return Container(
       decoration: BoxDecoration(
-        color: isRowEven == 0 ? Colors.white12 : Colors.orange,
+        color: isRowEven == 0 ? AppColors.containerColor : AppColors.containerColor,
         borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.borderColor, width: 2,),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: Column(
@@ -90,7 +92,6 @@ class _BuildExerciseRowState extends State<BuildExerciseRow> {
               return GestureDetector(
                 onTap: () => _toggleTapped(setIdx),
                 child: Container(
-                  color: _tappedRows[setIdx] ? Colors.lightBlue : Colors.transparent,
                   padding: const EdgeInsets.symmetric(vertical: 4),
                   child: Row(
                     children: [
@@ -109,9 +110,20 @@ class _BuildExerciseRowState extends State<BuildExerciseRow> {
                       Expanded(
                         child: Align(
                           alignment: Alignment.centerRight,
-                          child: Icon(
-                            _tappedRows[setIdx] ? Icons.check_box : Icons.check_box_outline_blank,
-                            color: _tappedRows[setIdx] ? Colors.green: Colors.black26,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: _tappedRows[setIdx] ? Colors.green : Colors.transparent, 
+                              border: Border.all(
+                                color: Colors.black26, // border when not selected
+                                width: 2,
+                              ),
+                            ),
+                            padding: const EdgeInsets.all(4),
+                            child: Icon(
+                              _tappedRows[setIdx] ? Icons.check : Icons.check_box_outline_blank,
+                              color: Colors.white, // check icon is always white
+                              size: 22,
+                            ),
                           ),
                         ),
                       ),

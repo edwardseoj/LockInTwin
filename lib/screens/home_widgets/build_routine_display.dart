@@ -118,7 +118,10 @@ class BuildRoutineDisplay extends StatelessWidget {
                   padding: EdgeInsets.all(20),
 
                   // COLORING: Routine Container
-                  decoration: BoxDecoration(color: AppColors.containerColor),
+                  decoration: BoxDecoration(color: AppColors.containerColor,
+                  border: Border.all(color: AppColors.borderColor, width: 2,),
+                  borderRadius: BorderRadius.circular(40),
+                  ),
                   child: Column(
                     children: [
                       Text(
@@ -157,6 +160,7 @@ class BuildRoutineDisplay extends StatelessWidget {
                           // COLORING: Button Color - Start Routine
                           backgroundColor: AppColors.buttonBlue,
                           padding: EdgeInsets.all(15),
+                          side: const BorderSide(color: AppColors.borderColor, width: 2),
                         ),
                         child: Text(
                           "Start routine",

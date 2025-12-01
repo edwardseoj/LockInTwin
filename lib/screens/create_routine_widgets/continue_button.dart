@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lock_in_twin/items/app_colors.dart';
 import 'package:lock_in_twin/items/exercises.dart';
 
 import 'package:lock_in_twin/items/routines.dart';
@@ -51,7 +52,13 @@ class ContinueButton extends StatelessWidget{
       },
 
       // parent design
-      style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.buttonBlue,
+        side: const BorderSide(color: Colors.black, width: 2),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,

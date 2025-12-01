@@ -136,6 +136,7 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
                       decoration: BoxDecoration(
                         color: AppColors.containerColor,
                         borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: AppColors.borderColor, width: 2,),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -276,7 +277,22 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
                                   updateExerciseSets(exerciseIndex);
                                 });
                               },
-                              child: const Text("Add Set"),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.buttonBlue, // your AppColor
+                                side: const BorderSide(color: AppColors.borderColor, width: 2), // black border
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8), // keep rounded corners
+                                ),
+                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                              ),
+                              child: const Text(
+                                "Add Set",
+                                style: TextStyle(
+                                  color: Colors.white, // text color
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ),
                         ],
@@ -301,9 +317,25 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
                   showInvalidRepsPopup();
                 }
               },
-              child: const Text("Save Routine & Show Details"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.buttonBlue, // your app color
+                side: const BorderSide(color: Colors.black, width: 2), // black border
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8), // rounded corners
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              ),
+              child: const Text(
+                "Save Routine & Show Details",
+                style: TextStyle(
+                  color: Colors.white, // text color
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
+
         ],
       ),
       ),
