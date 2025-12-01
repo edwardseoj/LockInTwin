@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lock_in_twin/items/app_colors.dart';
 
 class CustomContainer extends StatelessWidget {
   const CustomContainer({super.key});
@@ -18,7 +19,9 @@ class CustomContainer extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [Color(0xFF048BA8), Color(0xFF2F2D2E)],
+          colors: [AppColors.gradientStart,
+        AppColors.gradientEnd,
+          ]
         ),
         borderRadius: BorderRadius.circular(12),
       ),
@@ -30,7 +33,7 @@ class CustomContainer extends StatelessWidget {
             flex: 6, // proportion of total height
             child: Container(
               width: double.infinity,
-              color: Colors.white,
+              color: AppColors.containerWhite
             ),
           ),
 
@@ -39,7 +42,7 @@ class CustomContainer extends StatelessWidget {
           // Routine name container
           Container(
             alignment: Alignment.center,
-            color: Colors.white,
+            color: AppColors.containerWhite,
             padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
             child: const Text(
               "Insert Routine Name Here Finished",
@@ -57,7 +60,7 @@ class CustomContainer extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF2E4057),
+                backgroundColor: AppColors.buttonBlue,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(6),
                 ),
