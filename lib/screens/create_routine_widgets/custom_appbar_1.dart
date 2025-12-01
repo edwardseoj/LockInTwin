@@ -8,6 +8,8 @@ class CreateRoutineAppBar extends StatelessWidget {
     
     
     return AppBar(
+
+      // COLORING: AppBar Color
       backgroundColor: Colors.black,
       leading: IconButton(
         onPressed: () {
@@ -15,6 +17,8 @@ class CreateRoutineAppBar extends StatelessWidget {
         },
         icon: const Icon(
           Icons.cancel_outlined,
+
+          // COLORING: AppBar Color
           color: Colors.orange,
           size: 30,
         ),

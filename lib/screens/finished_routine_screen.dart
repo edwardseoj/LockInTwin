@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CustomContainer extends StatelessWidget {
-  const CustomContainer({super.key});
+class FinishedRoutine extends StatelessWidget {
+  const FinishedRoutine({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,9 @@ class CustomContainer extends StatelessWidget {
             width: double.infinity,
             height: 50,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.popUntil(context, (route) => route.isFirst);
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF2E4057),
                 shape: RoundedRectangleBorder(

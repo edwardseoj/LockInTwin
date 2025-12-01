@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lock_in_twin/screens/finished_routine_screen.dart';
 import 'package:lock_in_twin/screens/start_routine_widgets/build_excercise_row.dart';
 import '../items/routines.dart';
 import 'home_widgets/appbar.dart';
@@ -151,6 +152,9 @@ class _StartRoutineState extends State<StartRoutine> {
                             ),
                           ],
                         ),
+                      );
+                      Navigator.push(context, 
+                        MaterialPageRoute(builder: (context) => const FinishedRoutine())
                       );
                     },
                     style: ElevatedButton.styleFrom(
