@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
@@ -12,7 +11,9 @@ class AppColors {
 
   // Container background
   static const Color containerWhite = Colors.white;
+  static const Color appBar = Colors.black;
 
   // Screen background
   static const Color screenGrey = Color(0xFFE0E0E0);
+
 }
