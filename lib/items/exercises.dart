@@ -5,9 +5,7 @@ class Exercises{
   String subtitle;
   Widget icon;
   bool isSelected;
-
-  int set = 0;
-  int rep = 0;
+  List<Map<String, String>> sets = [];
 
 
 

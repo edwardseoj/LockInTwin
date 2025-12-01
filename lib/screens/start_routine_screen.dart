@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lock_in_twin/screens/start_routine_widgets/build_excercise_row.dart';
-
 import '../items/routines.dart';
 import 'home_widgets/appbar.dart';
 
@@ -15,77 +14,155 @@ class StartRoutine extends StatefulWidget {
   });
 
   @override
-  State<StatefulWidget> createState() => _StartRoutineState();
+  State<StartRoutine> createState() => _StartRoutineState();
 }
 
 class _StartRoutineState extends State<StartRoutine> {
   Color mainBg = const Color(0xFF302e2e);
+  double completionPercent = 0;
+  final ScrollController _scrollController = ScrollController();
 
   Routine get routineObj => widget.routineObj;
-
   int get index => widget.index;
+
+  void updateCompletionPercent() {
+    final routineExercises = routineObj.savedRoutines.values.elementAt(index);
+    int totalSets = 0;
+    int tappedSets = 0;
+
+    for (var exercise in routineExercises.values) {
+      totalSets += exercise.sets.length;
+      tappedSets += exercise.sets.where((s) => s['tapped'] == 'true').length;
+    }
+
+    setState(() {
+      completionPercent = totalSets == 0 ? 0 : (tappedSets / totalSets) * 100;
+    });
+  }
+
+  double _calculateOpacity(int exerciseIndex, int totalExercises) {
+    if (!_scrollController.hasClients) return 1.0;
+
+    // approximate position of exercise in scroll
+    double maxScroll = _scrollController.position.maxScrollExtent;
+    double currentScroll = _scrollController.offset;
+
+    // fraction of scroll remaining
+    double scrollFraction = (currentScroll / (maxScroll + 1)).clamp(0.0, 1.0);
+
+    // exercises near bottom become dimmer
+    double opacity = 1.0 - ((exerciseIndex + 1) / totalExercises) * scrollFraction * 0.5;
+    return opacity.clamp(0.5, 1.0); // min opacity 0.5
+  }
 
   @override
   Widget build(BuildContext context) {
     final routineName = routineObj.savedRoutines.keys.elementAt(index);
     final routineExercises = routineObj.savedRoutines.values.elementAt(index);
-    final exerciseTitles = routineExercises.values.map((e) => e.title).toList();
 
     return Scaffold(
       backgroundColor: mainBg,
-
-      // app bar
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70),
+        preferredSize: const Size.fromHeight(70),
         child: CustomAppBar(),
       ),
-
-      // main contents
-      body: Center(
+      body: SafeArea(
         child: Column(
           children: [
-            // routine name
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Text(
-                routineName,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  decoration: TextDecoration.underline,
-                  decorationColor: Colors.white,
+            // Scrollable exercises
+            Expanded(
+              child: SingleChildScrollView(
+                controller: _scrollController,
+                padding: const EdgeInsets.symmetric(vertical: 15),
+                child: Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 350),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+
+                        const SizedBox(height: 10),
+
+                        // Exercises list
+                        Column(
+                          children: List.generate(routineExercises.length, (idx) {
+                            final exercise = routineExercises.values.elementAt(idx);
+                            return AnimatedOpacity(
+                              duration: const Duration(milliseconds: 200),
+                              opacity: _calculateOpacity(idx, routineExercises.length),
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: BuildExerciseRow(
+                                  title: exercise.title,
+                                  index: idx,
+                                  sets: exercise.sets,
+                                  onUpdate: (_) => updateCompletionPercent(),
+                                ),
+                              ),
+                            );
+                          }),
+                        ),
+
+                        const SizedBox(height: 20),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
 
-            // rows for exercises
-            ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 350),
+
+            // Sticky container: progress bar + finish button
+            Container(
+              color: mainBg,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  ListView.separated(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (BuildContext context, int index) {
-                      return BuildExerciseRow(
-                        title: exerciseTitles[index],
-                        index: index,
+                  LinearProgressIndicator(
+                    value: completionPercent / 100,
+                    backgroundColor: Colors.white12,
+                    color: Colors.orange,
+                    minHeight: 8,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "${completionPercent.toStringAsFixed(0)}% complete",
+                    style: const TextStyle(color: Colors.white70),
+                  ),
+                  const SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          title: const Text("Finish Routine"),
+                          content: Text(
+                            "Do you want to finish your routine?\nYou are at ${completionPercent.toStringAsFixed(0)}% complete",
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text("Cancel"),
+                            ),
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text("Finish"),
+                            ),
+                          ],
+                        ),
                       );
                     },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return SizedBox(height: 5);
-                    },
-                    itemCount: exerciseTitles.length,
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(50),
+                      backgroundColor: Colors.orange,
+                    ),
+                    child: const Text(
+                      "Finish routine",
+                      style: TextStyle(color: Colors.black54, fontSize: 20),
+                    ),
                   ),
                 ],
-              ),
-            ),
-
-            ElevatedButton(
-              onPressed: () {},
-              child: Text(
-                "Finish routine",
-                style: TextStyle(color: Colors.black54, fontSize: 20),
               ),
             ),
           ],

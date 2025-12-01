@@ -3,6 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'exercises.dart';
 
 class Routine{
+  Routine._privateConstructor();
+  static final Routine instance = Routine._privateConstructor();
   String routineName = "";
 
   Map<String, Exercises> finalExercises = {};

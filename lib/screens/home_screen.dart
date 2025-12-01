@@ -17,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   Color appBarColor = const Color(0xFF000000);
   Color mainBg = const Color(0xFF302e2e);
-  final routineObj = Routine();
+  final routineObj = Routine.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CreateRoutine(routineObj: routineObj),
+                  builder: (context) => CreateRoutine(routineObj: Routine.instance),
                   settings: const RouteSettings(name: "/CreateRoutine1"),
                 ),
               ).then((_) {

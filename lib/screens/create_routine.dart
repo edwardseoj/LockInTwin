@@ -119,42 +119,40 @@ class _CreateRoutineState extends State<CreateRoutine> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: mainBg,
-
-      // App Bar
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70),
+        preferredSize: const Size.fromHeight(70),
         child: CreateRoutineAppBar().buildAppBar(context),
       ),
-
-      // body
       body: SafeArea(
         child: Column(
           children: [
-            // Routine title input
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: RoutineTitleForm(formKey: _formKey, routineObj: routineObj),
+            // Sticky Routine title
+            Container(
+              color: mainBg,
+              padding: const EdgeInsets.all(16),
+              child: RoutineTitleForm(
+                formKey: _formKey,
+                routineObj: routineObj,
+              ),
             ),
 
-            //exercise list and logic
+            // Exercise list scrollable
             Expanded(
               child: ListView.separated(
-                physics: AlwaysScrollableScrollPhysics(),
-
-                itemBuilder: (BuildContext context, int index) {
+                physics: const AlwaysScrollableScrollPhysics(),
+                itemCount: _exercises.length,
+                separatorBuilder: (_, __) => const Divider(color: Colors.white24),
+                itemBuilder: (context, index) {
                   String key = _exercises.keys.elementAt(index);
                   return ExerciseTile(
                     exercise: _exercises[key]!,
                     onTap: () => _toggleExercise(key),
                   );
                 },
-                separatorBuilder: (BuildContext context, int index) =>
-                    Divider(color: Colors.white24),
-                itemCount: _exercises.length,
               ),
             ),
 
-            // continue button and saving logic
+            // Continue button
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: ContinueButton(
