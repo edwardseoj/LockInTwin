@@ -6,6 +6,8 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:lock_in_twin/items/routines.dart';
 import 'package:lock_in_twin/screens/start_routine_screen.dart';
 
+import '../edit_screen.dart';
+
 class BuildRoutineDisplay extends StatelessWidget {
   final index;
   final Routine routineObj;
@@ -41,10 +43,15 @@ class BuildRoutineDisplay extends StatelessWidget {
                   motion: const BehindMotion(),
                   children: [
                     CustomSlidableAction(
-                      onPressed: (context) {
+                      onPressed: (context) async {
                         if (kDebugMode) {
                           print("Edit ${routineObj.savedRoutines[index]}");
                         }
+                        // Navigate to EditRoutine
+                        var result = await Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => EditRoutine(routineObj: routineObj)),
+                        );
                       },
                       backgroundColor: Color(0xFF048BA8),
                       child: LayoutBuilder(
@@ -71,24 +78,26 @@ class BuildRoutineDisplay extends StatelessWidget {
                   children: [
                     CustomSlidableAction(
                       onPressed: (context) {
-                        if (routineObj.savedRoutines.isNotEmpty) {
-                          routineObj.savedRoutines.remove(routineName);
-                          onDelete(); //refresh page
-                        }
-                        if (kDebugMode) {
-                          print("Deleted ${routineObj.savedRoutines[index]}");
-                        }
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => EditRoutine(routineObj: routineObj),
+                          ),
+                        ).then((_) {
+                          // Optional: refresh parent page after returning from edit
+                          onDelete();
+                        });
                       },
-                      backgroundColor: Colors.red,
+                      backgroundColor: const Color(0xFF048BA8),
                       child: LayoutBuilder(
                         builder: (context, constraints) {
                           final iconSize = math.min(
-                            constraints.maxHeight * 0.25,
-                            35.0,
+                            constraints.maxHeight * 0.35,
+                            50.0,
                           );
                           return Center(
                             child: Icon(
-                              Icons.delete_outline,
+                              Icons.edit_note_outlined,
                               size: iconSize,
                               color: Colors.white,
                             ),
