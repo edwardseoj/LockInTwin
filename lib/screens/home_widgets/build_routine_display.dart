@@ -115,12 +115,16 @@ class BuildRoutineDisplay extends StatelessWidget {
                 child: Container(
                   alignment: Alignment.center,
                   padding: EdgeInsets.all(20),
+
+                  // COLORING: Routine Container
                   decoration: BoxDecoration(color: Colors.grey),
                   child: Column(
                     children: [
                       Text(
                         routineName,
                         style: TextStyle(
+
+                          // COLORING: Text Color - Routine Name
                           color: Colors.white,
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
@@ -129,6 +133,8 @@ class BuildRoutineDisplay extends StatelessWidget {
                       SizedBox(height: 5,),
                       Text(
                         exerciseTitles.join(", "),
+
+                        // COLORING: Text Color - Exercise List
                         style: TextStyle(color: Colors.white, fontSize: 20),
                         softWrap: true,
                       ),
@@ -146,11 +152,15 @@ class BuildRoutineDisplay extends StatelessWidget {
                           );
                         },
                         style: ElevatedButton.styleFrom(
+
+                          // COLORING: Button Color - Start Routine
                           backgroundColor: Colors.orange,
                           padding: EdgeInsets.all(15),
                         ),
                         child: Text(
                           "Start routine",
+
+                          // COLORING: Text Color - Button Text
                           style: TextStyle(fontSize: 20, color: Colors.black54),
                         ),
                       ),

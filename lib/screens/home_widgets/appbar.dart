@@ -5,10 +5,14 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    // COLORING: Change or delete this
     Color appBarColor = const Color(0xFF000000);
 
     return AppBar(
       backgroundColor: appBarColor,
+
+      // COLORING: Text color
       title: Text("FME", style: TextStyle(color: Colors.white, fontSize: 30)),
       centerTitle: true,
     );

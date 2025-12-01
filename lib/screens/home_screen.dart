@@ -50,6 +50,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 setState(() {});
               });
             },
+
+
+            // COLORING: Floating Action Button
             backgroundColor: Colors.orange,
             child: Icon(Icons.add),
           ),
@@ -92,6 +95,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return Center(
       child: Text(
         "No Routines",
+
+        // COLORING: Text color
         style: TextStyle(color: Colors.white, fontSize: 40),
       ),
     );
