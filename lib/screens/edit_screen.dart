@@ -13,19 +13,18 @@ class EditRoutine extends StatefulWidget {
 
 class _EditRoutineState extends State<EditRoutine> {
   late List<List<Map<String, String>>> exerciseSets;
-  Set<String> invalidFields = {}; // track invalid reps fields
+  Set<String> invalidFields = {};
   late TextEditingController _routineNameController;
+  late String originalName;
 
   Routine get routineObj => widget.routineObj;
 
   @override
   void initState() {
     super.initState();
-
-    // Initialize routine name controller
+    originalName = routineObj.routineName;
     _routineNameController = TextEditingController(text: routineObj.routineName);
 
-    // Initialize exerciseSets from existing exercises
     exerciseSets = routineObj.finalExercises.values.map((exercise) {
       if (exercise.sets.isNotEmpty) {
         return List<Map<String, String>>.from(exercise.sets);
@@ -64,31 +63,37 @@ class _EditRoutineState extends State<EditRoutine> {
   void showInvalidRepsPopup() {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (_) => AlertDialog(
         title: const Text("Invalid Input"),
         content: const Text("All reps must be positive numbers and cannot be empty."),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context,true),
+            onPressed: () => Navigator.pop(context),
             child: const Text("OK"),
-          )
+          ),
         ],
       ),
     );
   }
 
   void saveRoutineEdits() {
-    routineObj.routineName = _routineNameController.text;
+    String newName = _routineNameController.text;
+
+    // Update exercises
     for (int i = 0; i < exerciseSets.length; i++) {
       routineObj.finalExercises.values
           .elementAt(i)
           .sets = List.from(exerciseSets[i]);
     }
 
-    // Optionally, you can also update the savedRoutines map if needed
-    routineObj.savedRoutines[routineObj.routineName] = routineObj.finalExercises;
+    // Update routine name and savedRoutines
+    if (originalName != newName) {
+      routineObj.savedRoutines.remove(originalName);
+      routineObj.routineName = newName;
+    }
+    routineObj.savedRoutines[newName] = routineObj.finalExercises;
 
-    Navigator.pop(context);
+    Navigator.pop(context, true); // return true to refresh parent
   }
 
   @override
@@ -170,17 +175,15 @@ class _EditRoutineState extends State<EditRoutine> {
                               ),
                             ),
 
-                            // Dynamic sets + reps
+                            // Sets + reps
                             Column(
                               children: List.generate(
                                 exerciseSets[exerciseIndex].length,
                                     (setIndex) {
                                   final setData =
                                   exerciseSets[exerciseIndex][setIndex];
-
                                   return Row(
                                     children: [
-                                      // Set #
                                       Expanded(
                                         child: TextFormField(
                                           style: const TextStyle(
@@ -205,8 +208,6 @@ class _EditRoutineState extends State<EditRoutine> {
                                         ),
                                       ),
                                       const SizedBox(width: 10),
-
-                                      // Reps
                                       Expanded(
                                         child: TextFormField(
                                           style: const TextStyle(
@@ -249,8 +250,6 @@ class _EditRoutineState extends State<EditRoutine> {
                                         ),
                                       ),
                                       const SizedBox(width: 10),
-
-                                      // Delete row
                                       GestureDetector(
                                         onTap: () {
                                           setState(() {
@@ -276,7 +275,6 @@ class _EditRoutineState extends State<EditRoutine> {
 
                             const SizedBox(height: 10),
 
-                            // Add set button
                             Align(
                               alignment: Alignment.centerRight,
                               child: ElevatedButton(
@@ -303,7 +301,6 @@ class _EditRoutineState extends State<EditRoutine> {
               ),
             ),
 
-            // Save edits button
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: ElevatedButton(

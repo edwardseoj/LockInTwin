@@ -52,6 +52,9 @@ class BuildRoutineDisplay extends StatelessWidget {
                           context,
                           MaterialPageRoute(builder: (_) => EditRoutine(routineObj: routineObj)),
                         );
+                        if(result == true){
+                          onDelete();
+                        }
                       },
                       backgroundColor: Color(0xFF048BA8),
                       child: LayoutBuilder(
