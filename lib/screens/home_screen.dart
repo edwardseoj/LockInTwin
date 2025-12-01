@@ -6,6 +6,7 @@ import 'package:lock_in_twin/screens/home_widgets/appbar.dart';
 import 'create_routine.dart';
 import '../items/routines.dart';
 import 'package:lock_in_twin/screens/home_widgets/build_routine_display.dart';
+import '../items/app_colors.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,8 +16,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Color appBarColor = const Color(0xFF000000);
-  Color mainBg = const Color(0xFF302e2e);
+  Color appBarColor = AppColors.appBar;
+  Color mainBg = AppColors.screenGrey;
   final routineObj = Routine.instance;
 
   @override
@@ -53,8 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
             // COLORING: Floating Action Button
-            backgroundColor: Colors.orange,
-            child: Icon(Icons.add),
+            backgroundColor: AppColors.buttonBlue,
+            child: const Icon(Icons.add, color: AppColors.containerWhite),
           ),
 
           body: Column(
@@ -97,7 +98,9 @@ class _HomeScreenState extends State<HomeScreen> {
         "No Routines",
 
         // COLORING: Text color
-        style: TextStyle(color: Colors.white, fontSize: 40),
+        style: TextStyle(color: AppColors.gradientStart,
+        fontSize: 40,
+        ),
       ),
     );
   }
