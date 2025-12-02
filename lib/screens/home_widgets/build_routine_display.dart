@@ -115,16 +115,12 @@ class BuildRoutineDisplay extends StatelessWidget {
                   ),
 
                   // design
-                  // design
                   child: Container(
                     alignment: Alignment.center,
                     padding: EdgeInsets.all(20),
 
-                    // COLORING: Routine Container
                     decoration: BoxDecoration(
                       color: AppColors.containerColor,
-                      // border: Border.all(color: AppColors.borderColor, width: 2),
-                      // borderRadius: BorderRadius.circular(40),
                     ),
                     child: Column(
                       children: [

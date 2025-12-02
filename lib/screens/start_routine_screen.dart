@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lock_in_twin/items/app_colors.dart';
-import 'package:lock_in_twin/screens/finished_routine_screen.dart';
-import 'package:lock_in_twin/screens/start_routine_widgets/build_excercise_row.dart';
-import '../items/routines.dart';
+import 'package:lock_in_twin/items/routines.dart';
+import '../items/app_colors.dart';
+import 'finished_routine_screen.dart';
 import 'home_widgets/appbar.dart';
+import 'start_routine_widgets/build_excercise_row.dart';
 
 class StartRoutine extends StatefulWidget {
   final Routine routineObj;
@@ -38,21 +38,19 @@ class _StartRoutineState extends State<StartRoutine> {
     }
 
     setState(() {
-      completionPercent = totalSets == 0 ? 0 : (tappedSets / totalSets) * 100;
+      completionPercent =
+      totalSets == 0 ? 0 : (tappedSets / totalSets) * 100;
     });
   }
 
   double _calculateOpacity(int exerciseIndex, int totalExercises) {
     if (!_scrollController.hasClients) return 1.0;
 
-    // approximate position of exercise in scroll
     double maxScroll = _scrollController.position.maxScrollExtent;
     double currentScroll = _scrollController.offset;
 
-    // fraction of scroll remaining
     double scrollFraction = (currentScroll / (maxScroll + 1)).clamp(0.0, 1.0);
 
-    // exercises near bottom become dimmer
     double opacity = 1.0 - ((exerciseIndex + 1) / totalExercises) * scrollFraction * 0.5;
     return opacity.clamp(0.5, 1.0); // min opacity 0.5
   }
@@ -82,10 +80,7 @@ class _StartRoutineState extends State<StartRoutine> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-
                         const SizedBox(height: 10),
-
-                        // Exercises list
                         Column(
                           children: List.generate(routineExercises.length, (idx) {
                             final exercise = routineExercises.values.elementAt(idx);
@@ -98,13 +93,12 @@ class _StartRoutineState extends State<StartRoutine> {
                                   title: exercise.title,
                                   index: idx,
                                   sets: exercise.sets,
-                                    onUpdate: updateCompletionPercent
+                                  onUpdate: updateCompletionPercent,
                                 ),
                               ),
                             );
                           }),
                         ),
-
                         const SizedBox(height: 20),
                       ],
                     ),
@@ -113,8 +107,7 @@ class _StartRoutineState extends State<StartRoutine> {
               ),
             ),
 
-
-            // Sticky container: progress bar + finish button
+            // Sticky container: progress + finish button
             Container(
               color: mainBg,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -135,39 +128,50 @@ class _StartRoutineState extends State<StartRoutine> {
                   const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (_) => AlertDialog(
-                          title: const Text("Finish Routine"),
-                          content: Text(
-                            "Do you want to finish your routine?\nYou are at ${completionPercent.toStringAsFixed(0)}% complete",
+                      // Ensure completionPercent is up-to-date
+                      updateCompletionPercent();
+
+                      // Save current completionPercent before resetting
+                      final percentToPass = completionPercent;
+
+                      // Reset all tapped sets
+                      final routineExercises = routineObj.savedRoutines.values.elementAt(index);
+                      for (var exercise in routineExercises.values) {
+                        for (var set in exercise.sets) {
+                          set['tapped'] = 'false';
+                        }
+                      }
+
+                      // Reset local completionPercent
+                      setState(() {
+                        completionPercent = 0;
+                      });
+
+                      // Navigate to FinishedRoutine screen with the saved percent
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => FinishedRoutine(
+                            completionPercent: percentToPass,
                           ),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.pop(context),
-                              child: const Text("Cancel"),
-                            ),
-                            TextButton(
-                              onPressed: () => Navigator.pop(context),
-                              child: const Text("Finish"),
-                            ),
-                          ],
                         ),
-                      );
-                      Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const FinishedRoutine())
                       );
                     },
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size.fromHeight(50),
                       backgroundColor: AppColors.buttonBlue,
-                      side: const BorderSide(color: AppColors.borderColor, width: 2,),
+                      side: const BorderSide(
+                        color: AppColors.borderColor,
+                        width: 2,
+                      ),
                     ),
                     child: const Text(
                       "Finish routine",
                       style: TextStyle(color: AppColors.iconTextWhite, fontSize: 20),
                     ),
                   ),
+
+
                 ],
               ),
             ),
