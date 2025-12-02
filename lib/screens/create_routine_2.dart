@@ -19,7 +19,7 @@ class CreateRoutine2 extends StatefulWidget {
 
 class _CreateRoutine2State extends State<CreateRoutine2> {
   late List<List<Map<String, String>>> exerciseSets;
-  Set<String> invalidFields = {}; // track invalid reps fields
+  Set<String> invalidFields = {};
 
   Routine get routineObj => widget.routineObj;
 
@@ -27,7 +27,6 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
   void initState() {
     super.initState();
 
-    // Initialize exerciseSets from Exercises objects
     exerciseSets = routineObj.finalExercises.values.map((exercise) {
       if (exercise.sets.isNotEmpty) {
         return List<Map<String, String>>.from(exercise.sets);
@@ -45,9 +44,8 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
         .sets = List.from(exerciseSets[exerciseIndex]);
   }
 
-  // Validate all reps before saving
   bool validateAllReps() {
-    invalidFields.clear(); // reset previous invalids
+    invalidFields.clear();
     bool allValid = true;
 
     for (int eIndex = 0; eIndex < exerciseSets.length; eIndex++) {
@@ -55,12 +53,12 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
         final reps = exerciseSets[eIndex][sIndex]['reps'] ?? '';
         if (reps.isEmpty || int.tryParse(reps) == null || int.parse(reps) <= 0) {
           allValid = false;
-          invalidFields.add("$eIndex-$sIndex"); // mark invalid
+          invalidFields.add("$eIndex-$sIndex");
         }
       }
     }
 
-    setState(() {}); // trigger UI update for red borders
+    setState(() {});
     return allValid;
   }
 
@@ -119,7 +117,6 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
             ),
           ),
 
-          // Scrollable list of exercises
           Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.only(bottom: 12),
@@ -141,7 +138,6 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Routine name with icon
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 15),
                             child: Row(
@@ -169,7 +165,6 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
                             ),
                           ),
 
-                          // Dynamic sets + reps rows
                           Column(
                             children: List.generate(
                               exerciseSets[exerciseIndex].length,
@@ -179,7 +174,6 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
 
                                 return Row(
                                   children: [
-                                    // Set #
                                     Expanded(
                                       child: TextFormField(
                                         style: const TextStyle(color: Colors.white),
@@ -202,7 +196,6 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
                                     ),
                                     const SizedBox(width: 10),
 
-                                    // Reps
                                     Expanded(
                                       child: TextFormField(
                                         style: const TextStyle(color: Colors.white),
@@ -241,7 +234,6 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
                                     ),
                                     const SizedBox(width: 10),
 
-                                    // Delete row
                                     GestureDetector(
                                       onTap: () {
                                         setState(() {
@@ -280,17 +272,17 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
                                 });
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.buttonBlue, // your AppColor
-                                side: const BorderSide(color: AppColors.borderColor, width: 2), // black border
+                                backgroundColor: AppColors.buttonBlue,
+                                side: const BorderSide(color: AppColors.borderColor, width: 2),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8), // keep rounded corners
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
                                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                               ),
                               child: const Text(
                                 "Add Set",
                                 style: TextStyle(
-                                  color: Colors.white, // text color
+                                  color: Colors.white,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -306,7 +298,6 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
             ),
           ),
 
-          // Save Routine button
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: ElevatedButton(
@@ -320,17 +311,17 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.buttonBlue, // your app color
-                side: const BorderSide(color: Colors.black, width: 2), // black border
+                backgroundColor: AppColors.buttonBlue,
+                side: const BorderSide(color: Colors.black, width: 2),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8), // rounded corners
+                  borderRadius: BorderRadius.circular(8),
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               ),
               child: const Text(
                 "Save Routine & Show Details",
                 style: TextStyle(
-                  color: Colors.white, // text color
+                  color: Colors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),

@@ -28,13 +28,11 @@ class BuildRoutineDisplay extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: ConstrainedBox(
-        // edit this for the width of routines
         constraints: BoxConstraints(maxWidth: 300),
         child: Column(
           children: [
             Container(
               decoration: BoxDecoration(
-
                 border: Border.all(color: AppColors.borderColor, width: 2),
 
                 borderRadius: BorderRadius.circular(20),
@@ -53,15 +51,18 @@ class BuildRoutineDisplay extends StatelessWidget {
                           if (kDebugMode) {
                             print("Edit ${routineObj.savedRoutines[index]}");
                           }
-                          // Navigate to EditRoutine
                           var result = await Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (_) => EditRoutine(routineObj: routineObj)),
+                            MaterialPageRoute(
+                              builder: (_) =>
+                                  EditRoutine(routineObj: routineObj),
+                            ),
                           );
-                          if(result == true){
+                          if (result == true) {
                             onDelete();
                           }
-                        },                      backgroundColor: Color(0xFF048BA8),
+                        },
+                        backgroundColor: Color(0xFF048BA8),
                         child: LayoutBuilder(
                           builder: (context, constraints) {
                             final iconSize = math.min(
@@ -114,20 +115,16 @@ class BuildRoutineDisplay extends StatelessWidget {
                     ],
                   ),
 
-                  // design
                   child: Container(
                     alignment: Alignment.center,
                     padding: EdgeInsets.all(20),
 
-                    decoration: BoxDecoration(
-                      color: AppColors.containerColor,
-                    ),
+                    decoration: BoxDecoration(color: AppColors.containerColor),
                     child: Column(
                       children: [
                         Text(
                           routineName,
                           style: TextStyle(
-                            // COLORING: Text Color - Routine Name
                             color: Colors.white,
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
@@ -137,7 +134,6 @@ class BuildRoutineDisplay extends StatelessWidget {
                         Text(
                           exerciseTitles.join(", "),
 
-                          // COLORING: Text Color - Exercise List
                           style: TextStyle(color: Colors.white, fontSize: 20),
                           softWrap: true,
                         ),
@@ -158,7 +154,6 @@ class BuildRoutineDisplay extends StatelessWidget {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            // COLORING: Button Color - Start Routine
                             backgroundColor: AppColors.buttonBlue,
                             padding: EdgeInsets.all(15),
                             side: const BorderSide(
@@ -169,7 +164,6 @@ class BuildRoutineDisplay extends StatelessWidget {
                           child: Text(
                             "Start routine",
 
-                            // COLORING: Text Color - Button Text
                             style: TextStyle(
                               fontSize: 20,
                               color: AppColors.iconTextWhite,

@@ -11,7 +11,6 @@ class ContinueButton extends StatelessWidget {
   final Map<String, Exercises> selectedExercises;
   final int exerciseCounter;
 
-  // 👇 ADD THIS
   final bool isHighlighted;
 
   const ContinueButton({
@@ -21,7 +20,6 @@ class ContinueButton extends StatelessWidget {
     required this.selectedExercises,
     required this.exerciseCounter,
 
-    // 👇 ADD THIS DEFAULT VALUE
     this.isHighlighted = false,
   });
 
@@ -29,15 +27,12 @@ class ContinueButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        // Validate the form
         if (!formKey.currentState!.validate()) {
           if (kDebugMode) print("Form is invalid, cannot continue");
-          return; // stop if form invalid
+          return;
         }
 
-        // Check if at least one exercise is selected
         if (exerciseCounter == 0) {
-          // Optionally, show a SnackBar to inform user
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Please select at least one exercise'),
@@ -45,19 +40,16 @@ class ContinueButton extends StatelessWidget {
             ),
           );
           if (kDebugMode) print("No exercises selected, cannot continue");
-          return; // stop navigation
+          return;
         }
 
-        // Save form fields
         formKey.currentState!.save();
 
-        // Copy selected exercises into routine
         routineObj.copyExercises(selectedExercises);
         routineObj.printExercises();
         routineObj.addRoutine();
         routineObj.printRoutines();
 
-        // Navigate to next screen
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -86,7 +78,6 @@ class ContinueButton extends StatelessWidget {
   }
 
 
-  // Helper UI
   List<Widget> _continueButtonDesign() {
     return [
       SizedBox(

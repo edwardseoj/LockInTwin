@@ -94,13 +94,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // helper widget
   Widget _emptyRoutinesWidget() {
     return Center(
       child: Text(
         "No Routines",
 
-        // COLORING: Text color
         style: TextStyle(color: AppColors.gradientStart,
         fontSize: 40,
         ),

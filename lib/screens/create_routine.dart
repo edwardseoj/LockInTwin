@@ -90,7 +90,6 @@ class _CreateRoutineState extends State<CreateRoutine> {
   final Map<String, Exercises> _selectedExercises = {};
   bool _isHoveringContinueButton = false;
 
-  // helper functions
   void _toggleExercise(String key) {
     setState(() {
       var exObj = _exercises[key]!;
@@ -104,7 +103,6 @@ class _CreateRoutineState extends State<CreateRoutine> {
         _exerciseCounter--;
       }
 
-      // Debugging prints
       for (var ex in _selectedExercises.entries) {
         if (kDebugMode) {
           print("Selected Exercise: ${ex.key}");
@@ -116,7 +114,6 @@ class _CreateRoutineState extends State<CreateRoutine> {
     });
   }
 
-  // main build method
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,7 +125,6 @@ class _CreateRoutineState extends State<CreateRoutine> {
       body: SafeArea(
         child: Column(
           children: [
-            // Sticky Routine title
             Container(
               color: mainBg,
               padding: const EdgeInsets.all(16),
@@ -138,7 +134,6 @@ class _CreateRoutineState extends State<CreateRoutine> {
               ),
             ),
 
-            // Exercise list scrollable
             Expanded(
               child: ListView.separated(
                 physics: const AlwaysScrollableScrollPhysics(),
@@ -171,7 +166,6 @@ class _CreateRoutineState extends State<CreateRoutine> {
               ),
             ),
 
-            // Continue button
             DragTarget<Exercises>(
               onAcceptWithDetails: (details) {
                 final exercise = details.data;
@@ -210,7 +204,7 @@ class _CreateRoutineState extends State<CreateRoutine> {
 
   Widget _dragFeedback(Exercises exercise) {
     return Material(
-      color: Colors.transparent, // remove background flash
+      color: Colors.transparent,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(

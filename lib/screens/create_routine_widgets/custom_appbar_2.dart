@@ -11,7 +11,6 @@ class CreateRoutineAppBar2 extends StatelessWidget {
 
     return AppBar(
 
-      //color
       backgroundColor: Colors.black,
 
       leading: IconButton(
@@ -35,7 +34,6 @@ class CreateRoutineAppBar2 extends StatelessWidget {
       title: const Text(
         "CREATE ROUTINE",
 
-        // text color
         style: TextStyle(color: Colors.white, fontSize: 15),
       ),
       centerTitle: true,

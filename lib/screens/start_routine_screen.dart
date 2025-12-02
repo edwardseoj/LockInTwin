@@ -69,7 +69,6 @@ class _StartRoutineState extends State<StartRoutine> {
       body: SafeArea(
         child: Column(
           children: [
-            // Scrollable exercises
             Expanded(
               child: SingleChildScrollView(
                 controller: _scrollController,
@@ -107,7 +106,6 @@ class _StartRoutineState extends State<StartRoutine> {
               ),
             ),
 
-            // Sticky container: progress + finish button
             Container(
               color: mainBg,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -128,13 +126,10 @@ class _StartRoutineState extends State<StartRoutine> {
                   const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () {
-                      // Ensure completionPercent is up-to-date
                       updateCompletionPercent();
 
-                      // Save current completionPercent before resetting
                       final percentToPass = completionPercent;
 
-                      // Reset all tapped sets
                       final routineExercises = routineObj.savedRoutines.values.elementAt(index);
                       for (var exercise in routineExercises.values) {
                         for (var set in exercise.sets) {
@@ -142,12 +137,10 @@ class _StartRoutineState extends State<StartRoutine> {
                         }
                       }
 
-                      // Reset local completionPercent
                       setState(() {
                         completionPercent = 0;
                       });
 
-                      // Navigate to FinishedRoutine screen with the saved percent
                       Navigator.push(
                         context,
                         MaterialPageRoute(

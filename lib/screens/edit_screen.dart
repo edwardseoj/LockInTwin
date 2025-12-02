@@ -80,21 +80,19 @@ class _EditRoutineState extends State<EditRoutine> {
   void saveRoutineEdits() {
     String newName = _routineNameController.text;
 
-    // Update exercises
     for (int i = 0; i < exerciseSets.length; i++) {
       routineObj.finalExercises.values
           .elementAt(i)
           .sets = List.from(exerciseSets[i]);
     }
 
-    // Update routine name and savedRoutines
     if (originalName != newName) {
       routineObj.savedRoutines.remove(originalName);
       routineObj.routineName = newName;
     }
     routineObj.savedRoutines[newName] = routineObj.finalExercises;
 
-    Navigator.pop(context, true); // return true to refresh parent
+    Navigator.pop(context, true);
   }
 
   @override
@@ -110,7 +108,6 @@ class _EditRoutineState extends State<EditRoutine> {
       body: SafeArea(
         child: Column(
           children: [
-            // Editable routine name
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: TextFormField(
@@ -129,7 +126,6 @@ class _EditRoutineState extends State<EditRoutine> {
               ),
             ),
 
-            // Scrollable exercises
             Expanded(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.only(bottom: 12),
@@ -151,7 +147,6 @@ class _EditRoutineState extends State<EditRoutine> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Exercise title with icon
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 15),
                               child: Row(
@@ -179,7 +174,6 @@ class _EditRoutineState extends State<EditRoutine> {
                               ),
                             ),
 
-                            // Sets + reps
                             Column(
                               children: List.generate(
                                 exerciseSets[exerciseIndex].length,
@@ -293,17 +287,17 @@ class _EditRoutineState extends State<EditRoutine> {
                                   });
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.buttonBlue, // your app color
-                                  side: const BorderSide(color: Colors.black, width: 2), // black border
+                                  backgroundColor: AppColors.buttonBlue,
+                                  side: const BorderSide(color: Colors.black, width: 2),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8), // rounded corners
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
                                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                                 ),
                                 child: const Text(
                                   "Add Set",
                                   style: TextStyle(
-                                    color: Colors.white, // text color
+                                    color: Colors.white,
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -330,17 +324,17 @@ class _EditRoutineState extends State<EditRoutine> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.buttonBlue, // your app color
-                  side: const BorderSide(color: Colors.black, width: 2), // black border
+                  backgroundColor: AppColors.buttonBlue,
+                  side: const BorderSide(color: Colors.black, width: 2),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8), // rounded corners
+                    borderRadius: BorderRadius.circular(8),
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 ),
                 child: const Text(
                   "Save Edits",
                   style: TextStyle(
-                    color: Colors.white, // text color
+                    color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),

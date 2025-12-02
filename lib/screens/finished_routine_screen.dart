@@ -5,7 +5,7 @@ import '../items/app_colors.dart';
 import 'home_widgets/appbar.dart';
 
 class FinishedRoutine extends StatefulWidget {
-  final double completionPercent; // Pass from StartRoutine
+  final double completionPercent;
   const FinishedRoutine({super.key, required this.completionPercent});
 
   @override
@@ -15,7 +15,6 @@ class FinishedRoutine extends StatefulWidget {
 class _FinishedRoutineState extends State<FinishedRoutine> {
   final routineObj = Routine.instance;
 
-  // Map of motivational quotes
   static const Map<int, String> routineQuotes = {
     1: "Push yourself, because no one else will.",
     2: "Success doesn't come from what you do occasionally, it comes from what you do consistently.",
@@ -39,7 +38,6 @@ class _FinishedRoutineState extends State<FinishedRoutine> {
     20: "You crushed it. Now go again tomorrow."
   };
 
-  // Function to get a random quote from the map
   String getRandomQuote() {
     final random = Random();
     final keys = routineQuotes.keys.toList();
@@ -68,7 +66,6 @@ class _FinishedRoutineState extends State<FinishedRoutine> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Main container with quote and routine info
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
@@ -81,7 +78,6 @@ class _FinishedRoutineState extends State<FinishedRoutine> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      // Quote at top
                       Text(
                         '"$quote"',
                         textAlign: TextAlign.center,
@@ -93,7 +89,6 @@ class _FinishedRoutineState extends State<FinishedRoutine> {
                         ),
                       ),
                       const SizedBox(height: 30),
-                      // Routine finished text
                       Text(
                         "Routine $routineName finished",
                         textAlign: TextAlign.center,
@@ -116,7 +111,6 @@ class _FinishedRoutineState extends State<FinishedRoutine> {
                   ),
                 ),
                 const SizedBox(height: 50),
-                // Back button
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.buttonBlue,
