@@ -157,10 +157,12 @@ class _EditRoutineState extends State<EditRoutine> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Icon(
-                                    Icons.fitness_center,
-                                    color: Colors.orange,
-                                    size: 30,
+                                  IconTheme(
+                                    data: const IconThemeData(
+                                      color: Colors.orange,
+                                      size: 30,
+                                    ),
+                                    child: exercise.icon,
                                   ),
                                   const SizedBox(width: 10),
                                   Text(
