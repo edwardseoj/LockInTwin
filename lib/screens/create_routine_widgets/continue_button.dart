@@ -29,15 +29,35 @@ class ContinueButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        if (formKey.currentState!.validate()) {
-          formKey.currentState!.save();
+        // Validate the form
+        if (!formKey.currentState!.validate()) {
+          if (kDebugMode) print("Form is invalid, cannot continue");
+          return; // stop if form invalid
         }
 
+        // Check if at least one exercise is selected
+        if (exerciseCounter == 0) {
+          // Optionally, show a SnackBar to inform user
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Please select at least one exercise'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+          if (kDebugMode) print("No exercises selected, cannot continue");
+          return; // stop navigation
+        }
+
+        // Save form fields
+        formKey.currentState!.save();
+
+        // Copy selected exercises into routine
         routineObj.copyExercises(selectedExercises);
         routineObj.printExercises();
         routineObj.addRoutine();
         routineObj.printRoutines();
 
+        // Navigate to next screen
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -51,11 +71,7 @@ class ContinueButton extends StatelessWidget {
       },
 
       style: ElevatedButton.styleFrom(
-        // 👇 CHANGE BACKGROUND COLOR BASED ON HIGHLIGHT
-        backgroundColor: isHighlighted
-            ? Colors.blueAccent   // highlight color
-            : AppColors.buttonBlue,
-
+        backgroundColor: isHighlighted ? Colors.blueAccent : AppColors.buttonBlue,
         side: const BorderSide(color: Colors.black, width: 2),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
@@ -68,6 +84,7 @@ class ContinueButton extends StatelessWidget {
       ),
     );
   }
+
 
   // Helper UI
   List<Widget> _continueButtonDesign() {
