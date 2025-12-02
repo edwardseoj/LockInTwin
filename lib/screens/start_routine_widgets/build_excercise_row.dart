@@ -5,7 +5,7 @@ class BuildExerciseRow extends StatefulWidget {
   final String title;
   final int index;
   final List<Map<String, String>> sets;
-  final ValueChanged<void> onUpdate;
+  final VoidCallback onUpdate;
 
   const BuildExerciseRow({
     super.key,
@@ -25,14 +25,14 @@ class _BuildExerciseRowState extends State<BuildExerciseRow> {
   @override
   void initState() {
     super.initState();
-    _tappedRows = List<bool>.filled(widget.sets.length, false);
+    _tappedRows = widget.sets.map((s) => s['tapped'] == 'true' || s['tapped'] == true).toList();
   }
 
   void _toggleTapped(int idx) {
     setState(() {
       _tappedRows[idx] = !_tappedRows[idx];
       widget.sets[idx]['tapped'] = _tappedRows[idx] ? 'true' : 'false';
-      widget.onUpdate(null); // notify parent
+      widget.onUpdate(); // notify parent
     });
   }
 
@@ -110,18 +110,20 @@ class _BuildExerciseRowState extends State<BuildExerciseRow> {
                       Expanded(
                         child: Align(
                           alignment: Alignment.centerRight,
-                          child: Container(
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 200), // smooth animation
                             decoration: BoxDecoration(
                               color: _tappedRows[setIdx] ? Colors.green : Colors.transparent,
                               border: Border.all(
-                                color: Colors.black26, // border when not selected
+                                color: Colors.black26,
                                 width: 2,
                               ),
+                              borderRadius: BorderRadius.circular(4), // optional: rounded corners
                             ),
                             padding: const EdgeInsets.all(4),
                             child: Icon(
                               _tappedRows[setIdx] ? Icons.check : Icons.check_box_outline_blank,
-                              color: Colors.white, // check icon is always white
+                              color: Colors.white,
                               size: 22,
                             ),
                           ),

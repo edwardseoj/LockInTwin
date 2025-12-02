@@ -98,7 +98,7 @@ class _StartRoutineState extends State<StartRoutine> {
                                   title: exercise.title,
                                   index: idx,
                                   sets: exercise.sets,
-                                  onUpdate: (_) => updateCompletionPercent(),
+                                    onUpdate: updateCompletionPercent
                                 ),
                               ),
                             );
