@@ -14,33 +14,27 @@ class ExerciseTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: exercise.icon,
-      title: Text(
-        exercise.title,
-        style: const TextStyle(color: Colors.white),
-      ),
-      subtitle: Text(
-        exercise.subtitle,
-        style: const TextStyle(color: Colors.white70),
-      ),
-      tileColor: exercise.isSelected ? AppColors.containerColor : null,
-      trailing: Container(
-        decoration: BoxDecoration(
-          color: AppColors.buttonBlue,
-          shape: BoxShape.circle,
-          border: Border.all(color: AppColors.borderColor, width: 2,),
-        ),
-        padding: const EdgeInsets.all(6),
-        child: Icon(
-          exercise.isSelected
-              ? Icons.backspace_outlined
-              : Icons.add, // solid plus icon
-          color: exercise.isSelected ? Colors.red : AppColors.iconTextWhite,
-          size: 24,
-        ),
-      ),
+    return GestureDetector(
       onTap: onTap,
+      child: ListTile(
+        leading: exercise.icon,
+        title: Text(exercise.title, style: const TextStyle(color: Colors.white)),
+        subtitle: Text(exercise.subtitle, style: const TextStyle(color: Colors.white70)),
+        tileColor: exercise.isSelected ? AppColors.containerColor : null,
+        trailing: Container(
+          decoration: BoxDecoration(
+            color: AppColors.buttonBlue,
+            shape: BoxShape.circle,
+            border: Border.all(color: AppColors.borderColor, width: 2),
+          ),
+          padding: const EdgeInsets.all(6),
+          child: Icon(
+            exercise.isSelected ? Icons.backspace_outlined : Icons.add,
+            color: exercise.isSelected ? Colors.red : AppColors.iconTextWhite,
+            size: 24,
+          ),
+        ),
+      ),
     );
   }
 }

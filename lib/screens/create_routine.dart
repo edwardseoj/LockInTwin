@@ -88,6 +88,7 @@ class _CreateRoutineState extends State<CreateRoutine> {
     ),
   };
   final Map<String, Exercises> _selectedExercises = {};
+  bool _isHoveringContinueButton = false;
 
   // helper functions
   void _toggleExercise(String key) {
@@ -145,27 +146,101 @@ class _CreateRoutineState extends State<CreateRoutine> {
                 separatorBuilder: (_, __) => const Divider(color: Colors.white24),
                 itemBuilder: (context, index) {
                   String key = _exercises.keys.elementAt(index);
-                  return ExerciseTile(
-                    exercise: _exercises[key]!,
-                    onTap: () => _toggleExercise(key),
+                  return LongPressDraggable<Exercises>(
+                    data: _exercises[key],
+
+                    feedback: Transform.scale(
+                      scale: 1.1,
+                      child: _dragFeedback(_exercises[key]!),
+                    ),
+
+                    childWhenDragging: Opacity(
+                      opacity: 0.3,
+                      child: ExerciseTile(
+                        exercise: _exercises[key]!,
+                        onTap: () => _toggleExercise(key),
+                      ),
+                    ),
+
+                    child: ExerciseTile(
+                      exercise: _exercises[key]!,
+                      onTap: () => _toggleExercise(key),
+                    ),
                   );
                 },
               ),
             ),
 
             // Continue button
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ContinueButton(
-                formKey: _formKey,
-                routineObj: routineObj,
-                selectedExercises: _selectedExercises,
-                exerciseCounter: _exerciseCounter,
-              ),
+            DragTarget<Exercises>(
+              onAcceptWithDetails: (details) {
+                final exercise = details.data;
+                setState(() {
+                  exercise.isSelected = true;
+                  _selectedExercises[exercise.title] = exercise;
+                  _exerciseCounter++;
+                  _isHoveringContinueButton = false; // reset hover
+                });
+              },
+              onMove: (details) {
+                setState(() {
+                  _isHoveringContinueButton = true;
+                });
+              },
+              onLeave: (details) {
+                setState(() {
+                  _isHoveringContinueButton = false;
+                });
+              },
+              builder: (context, candidateData, rejectedData) {
+                return ContinueButton(
+                  formKey: _formKey,
+                  routineObj: routineObj,
+                  selectedExercises: _selectedExercises,
+                  exerciseCounter: _exerciseCounter,
+                  isHighlighted: _isHoveringContinueButton || candidateData.isNotEmpty,
+                );
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _dragFeedback(Exercises exercise) {
+    return Material(
+      color: Colors.transparent, // remove background flash
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.9),
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 4,
+              offset: Offset(2, 2),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              height: 30,
+              width: 30,
+              child: exercise.icon,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              exercise.title,
+              style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
             ),
           ],
         ),
       ),
     );
   }
+
 }

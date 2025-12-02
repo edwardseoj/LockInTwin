@@ -2,76 +2,76 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lock_in_twin/items/app_colors.dart';
 import 'package:lock_in_twin/items/exercises.dart';
-
 import 'package:lock_in_twin/items/routines.dart';
 import 'package:lock_in_twin/screens/create_routine_2.dart';
 
-class ContinueButton extends StatelessWidget{
+class ContinueButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final Routine routineObj;
   final Map<String, Exercises> selectedExercises;
   final int exerciseCounter;
+
+  // 👇 ADD THIS
+  final bool isHighlighted;
 
   const ContinueButton({
     super.key,
     required this.formKey,
     required this.routineObj,
     required this.selectedExercises,
-    required this.exerciseCounter
+    required this.exerciseCounter,
+
+    // 👇 ADD THIS DEFAULT VALUE
+    this.isHighlighted = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        // Save routine logic
         if (formKey.currentState!.validate()) {
           formKey.currentState!.save();
         }
+
         routineObj.copyExercises(selectedExercises);
         routineObj.printExercises();
         routineObj.addRoutine();
         routineObj.printRoutines();
 
-
-        // moves to home page
-        Navigator.push(context,
-            MaterialPageRoute(
-                builder: (context) => CreateRoutine2(routineObj: routineObj, formKey: formKey),
-              settings: const RouteSettings(name: "/CreateRoutine2"),
-            )
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                CreateRoutine2(routineObj: routineObj, formKey: formKey),
+            settings: const RouteSettings(name: "/CreateRoutine2"),
+          ),
         );
-        
 
-        if (kDebugMode) {
-          print("Routine Saved");
-        }
+        if (kDebugMode) print("Routine Saved");
       },
 
-      // parent design
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.buttonBlue,
+        // 👇 CHANGE BACKGROUND COLOR BASED ON HIGHLIGHT
+        backgroundColor: isHighlighted
+            ? Colors.blueAccent   // highlight color
+            : AppColors.buttonBlue,
+
         side: const BorderSide(color: Colors.black, width: 2),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
       ),
+
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: _continueButtonDesign(),
       ),
     );
   }
 
-
-  // Helper widgets
+  // Helper UI
   List<Widget> _continueButtonDesign() {
-    // children widgets list
-    var children = <Widget>[];
-
-    children.add(
+    return [
       SizedBox(
         height: 25,
         width: 25,
@@ -82,19 +82,15 @@ class ContinueButton extends StatelessWidget{
             borderRadius: BorderRadius.circular(20),
           ),
           child: Text(
-            textAlign: TextAlign.center,
             exerciseCounter.toString(),
-            style: TextStyle(color: Colors.black, fontSize: 12),
+            textAlign: TextAlign.center,
+            style: const TextStyle(color: Colors.black, fontSize: 12),
           ),
         ),
       ),
-    );
-    children.add(SizedBox(width: 10));
-    children.add(
-      Text('Continue', style: TextStyle(fontSize: 18, color: Colors.white)),
-    );
-    children.add(Icon(Icons.navigate_next, color: Colors.white));
-
-    return children;
+      const SizedBox(width: 10),
+      const Text('Continue', style: TextStyle(fontSize: 18, color: Colors.white)),
+      const Icon(Icons.navigate_next, color: Colors.white),
+    ];
   }
 }
