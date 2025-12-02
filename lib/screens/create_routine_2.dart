@@ -147,10 +147,12 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.fitness_center, // or any icon you want
-                                  color: Colors.orange,
-                                  size: 30,
+                                IconTheme(
+                                  data: const IconThemeData(
+                                    color: Colors.orange,
+                                    size: 30,
+                                  ),
+                                  child: exercise.icon,
                                 ),
                                 const SizedBox(width: 10),
                                 Text(
