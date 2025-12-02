@@ -10,6 +10,12 @@ class Exercises{
 
 
 
+  int set = 0;
+  int rep = 0;
+
+
+
+
   Exercises({
     required this.title,
     required this.subtitle,

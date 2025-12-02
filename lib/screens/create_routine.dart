@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lock_in_twin/items/app_colors.dart';
 import 'package:lock_in_twin/screens/create_routine_widgets/continue_button.dart';
 import 'package:lock_in_twin/screens/create_routine_widgets/exercise_tile.dart';
 import 'package:lock_in_twin/screens/create_routine_widgets/routine_title_form.dart';
@@ -18,7 +19,7 @@ class CreateRoutine extends StatefulWidget {
 }
 
 class _CreateRoutineState extends State<CreateRoutine> {
-  Color mainBg = const Color(0xFF302e2e);
+  Color mainBg = AppColors.screenGrey;
 
   Routine get routineObj => widget.routineObj;
   final _formKey = GlobalKey<FormState>();
@@ -28,61 +29,61 @@ class _CreateRoutineState extends State<CreateRoutine> {
     "Push Ups": Exercises(
       title: "Push Ups",
       subtitle: "Upper Body",
-      icon: const Icon(Icons.fitness_center),
+      icon: Image.asset('assets/icons/push-ups.png', height: 40, width: 40),
       isSelected: false,
     ),
     "Squats": Exercises(
       title: "Squats",
       subtitle: "Lower Body",
-      icon: const Icon(Icons.airline_seat_legroom_extra_sharp),
+      icon: Image.asset('assets/icons/squats.png', height: 40, width: 40),
       isSelected: false,
     ),
     "Glute Bridges": Exercises(
       title: "Glute Bridges",
       subtitle: "Lower Body",
-      icon: const Icon(Icons.airline_seat_legroom_extra_sharp),
+      icon: Image.asset('assets/icons/glutes.png', height: 40, width: 40),
       isSelected: false,
     ),
     "Pull Ups": Exercises(
       title: "Pull Ups",
       subtitle: "Upper Body",
-      icon: const Icon(Icons.fitness_center),
+      icon: Image.asset('assets/icons/pull-ups.png', height: 40, width: 40),
       isSelected: false,
     ),
     "Plank": Exercises(
       title: "Plank",
       subtitle: "Core",
-      icon: const Icon(Icons.fitness_center),
+      icon: Image.asset('assets/icons/planks.png', height: 40, width: 40),
       isSelected: false,
     ),
     "Plank1": Exercises(
       title: "Plank1",
       subtitle: "Core",
-      icon: const Icon(Icons.fitness_center),
+      icon: Image.asset('assets/icons/planks.png', height: 40, width: 40),
       isSelected: false,
     ),
     "Plank2": Exercises(
       title: "Plank2",
       subtitle: "Core",
-      icon: const Icon(Icons.fitness_center),
+      icon: Image.asset('assets/icons/planks.png', height: 40, width: 40),
       isSelected: false,
     ),
     "Plank3": Exercises(
       title: "Plank3",
       subtitle: "Core",
-      icon: const Icon(Icons.fitness_center),
+      icon: Image.asset('assets/icons/planks.png', height: 40, width: 40),
       isSelected: false,
     ),
     "Plank4": Exercises(
       title: "Plank4",
       subtitle: "Core",
-      icon: const Icon(Icons.fitness_center),
+      icon: Image.asset('assets/icons/planks.png', height: 40, width: 40),
       isSelected: false,
     ),
     "Plank5": Exercises(
       title: "Plank5",
       subtitle: "Core",
-      icon: const Icon(Icons.fitness_center),
+      icon: Image.asset('assets/icons/planks.png', height: 40, width: 40),
       isSelected: false,
     ),
   };

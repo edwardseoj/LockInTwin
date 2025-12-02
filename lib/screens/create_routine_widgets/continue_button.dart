@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lock_in_twin/items/app_colors.dart';
 import 'package:lock_in_twin/items/exercises.dart';
 
 import 'package:lock_in_twin/items/routines.dart';
@@ -48,8 +49,13 @@ class ContinueButton extends StatelessWidget{
       },
 
       // parent design
-      // COLORING: Button Color
-      style: ElevatedButton.styleFrom(backgroundColor: Colors.orange),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.buttonBlue,
+        side: const BorderSide(color: Colors.black, width: 2),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -62,6 +68,7 @@ class ContinueButton extends StatelessWidget{
 
   // Helper widgets
   List<Widget> _continueButtonDesign() {
+    // children widgets list
     var children = <Widget>[];
 
     children.add(
@@ -71,8 +78,6 @@ class ContinueButton extends StatelessWidget{
         child: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
-
-            // COLORING: Inside the Button - Circle Exercise Counter Color, beside text
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
           ),
@@ -86,14 +91,8 @@ class ContinueButton extends StatelessWidget{
     );
     children.add(SizedBox(width: 10));
     children.add(
-
-
-      // COLORING: Inside the Button - Text Color
       Text('Continue', style: TextStyle(fontSize: 18, color: Colors.white)),
     );
-
-
-    // COLORING: Inside the Button - Arrow Icon Color
     children.add(Icon(Icons.navigate_next, color: Colors.white));
 
     return children;

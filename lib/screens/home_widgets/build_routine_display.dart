@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:lock_in_twin/items/app_colors.dart';
 import 'package:lock_in_twin/items/routines.dart';
 import 'package:lock_in_twin/screens/start_routine_screen.dart';
 
@@ -102,7 +103,7 @@ class BuildRoutineDisplay extends StatelessWidget {
                             child: Icon(
                               Icons.edit_note_outlined,
                               size: iconSize,
-                              color: Colors.white,
+                              color: AppColors.iconTextWhite,
                             ),
                           );
                         },
@@ -117,7 +118,10 @@ class BuildRoutineDisplay extends StatelessWidget {
                   padding: EdgeInsets.all(20),
 
                   // COLORING: Routine Container
-                  decoration: BoxDecoration(color: Colors.grey),
+                  decoration: BoxDecoration(color: AppColors.containerColor,
+                  border: Border.all(color: AppColors.borderColor, width: 2,),
+                  borderRadius: BorderRadius.circular(40),
+                  ),
                   child: Column(
                     children: [
                       Text(
@@ -154,14 +158,15 @@ class BuildRoutineDisplay extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
 
                           // COLORING: Button Color - Start Routine
-                          backgroundColor: Colors.orange,
+                          backgroundColor: AppColors.buttonBlue,
                           padding: EdgeInsets.all(15),
+                          side: const BorderSide(color: AppColors.borderColor, width: 2),
                         ),
                         child: Text(
                           "Start routine",
 
                           // COLORING: Text Color - Button Text
-                          style: TextStyle(fontSize: 20, color: Colors.black54),
+                          style: TextStyle(fontSize: 20, color: AppColors.iconTextWhite),
                         ),
                       ),
                       SizedBox(height: 5,),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lock_in_twin/items/routines.dart';
 import 'create_routine_widgets/custom_appbar_2.dart';
+import '../items/app_colors.dart';
 
 class CreateRoutine2 extends StatefulWidget {
   final Routine routineObj;
@@ -92,7 +93,7 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
 
   @override
   Widget build(BuildContext context) {
-    Color mainBg = const Color(0xFF302e2e);
+    Color mainBg = AppColors.screenGrey;
     final routineName = widget.routineObj.savedRoutines.isNotEmpty
         ? widget.routineObj.savedRoutines.keys.last
         : widget.routineObj.routineName;
@@ -110,13 +111,9 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
             child: Text(
               routineName,
               style: const TextStyle(
-
-                // COLORING: Text Color - Routine Title
                 color: Colors.white,
                 fontSize: 30,
                 decoration: TextDecoration.underline,
-
-                // COLORING: Underline Color - Routine Title
                 decorationColor: Colors.white,
               ),
             ),
@@ -137,10 +134,9 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
                       margin: const EdgeInsets.all(12),
                       padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
-
-                        // COLORING: Container Background Color - for each routine
-                        color: Colors.white12,
+                        color: AppColors.containerColor,
                         borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: AppColors.borderColor, width: 2,),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -161,13 +157,9 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
                                   exercise.title,
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(
-
-                                    // COLORING: Text Color - Exercise Name
                                     color: Colors.white,
                                     fontSize: 30,
                                     decoration: TextDecoration.underline,
-
-                                    // COLORING: Underline Color - Exercise Name
                                     decorationColor: Colors.white,
                                   ),
                                 ),
@@ -188,17 +180,11 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
                                     // Set #
                                     Expanded(
                                       child: TextFormField(
-
-                                        // COLORING: Text Color - Set Input text color
                                         style: const TextStyle(color: Colors.white),
                                         decoration: const InputDecoration(
                                           labelText: "Set #",
-
-                                          // COLORING: Label Color - Set Label
                                           labelStyle: TextStyle(color: Colors.white70),
-
                                           enabledBorder: UnderlineInputBorder(
-                                            // COLORING: Underline Color - Set Label
                                             borderSide: BorderSide(color: Colors.white38),
                                           ),
                                         ),
@@ -217,13 +203,9 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
                                     // Reps
                                     Expanded(
                                       child: TextFormField(
-
-                                        // COLORING: Input Color - Rep Input color
                                         style: const TextStyle(color: Colors.white),
                                         decoration: InputDecoration(
                                           labelText: "Reps",
-
-                                          // COLORING: Label Color - Rep Label
                                           labelStyle: const TextStyle(color: Colors.white70),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -295,7 +277,22 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
                                   updateExerciseSets(exerciseIndex);
                                 });
                               },
-                              child: const Text("Add Set"),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.buttonBlue, // your AppColor
+                                side: const BorderSide(color: AppColors.borderColor, width: 2), // black border
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8), // keep rounded corners
+                                ),
+                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                              ),
+                              child: const Text(
+                                "Add Set",
+                                style: TextStyle(
+                                  color: Colors.white, // text color
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ),
                         ],
@@ -320,9 +317,25 @@ class _CreateRoutine2State extends State<CreateRoutine2> {
                   showInvalidRepsPopup();
                 }
               },
-              child: const Text("Save Routine & Show Details"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.buttonBlue, // your app color
+                side: const BorderSide(color: Colors.black, width: 2), // black border
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8), // rounded corners
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              ),
+              child: const Text(
+                "Save Routine & Show Details",
+                style: TextStyle(
+                  color: Colors.white, // text color
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
+
         ],
       ),
       ),
